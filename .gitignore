@@ -3,13 +3,13 @@
 /public/build
 /public/uploads
 /public/hot
-#/public/storage
+/public/storage
 #/public/db
 /public/ckfinder
 /public/images/*.zip
 /public/images/*.rar
 /storage/*.key
-/storage/
+#/storage/
 /vendor
 .env
 .env.backup
