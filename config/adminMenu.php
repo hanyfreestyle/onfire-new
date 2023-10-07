@@ -157,46 +157,6 @@
 
         [
             'view'=>true,
-            'sel_routs'=>'FAQ',
-            'type'=>'one',
-            'text'=> 'admin/menu.faq',
-            'url'=> 'FAQ.FaqList.index',
-            'icon'=>'fas fa-question',
-            'roleView'=>'Faq_view',
-        ],#FAQ
-
-        [
-            'view'=>true,
-            'sel_routs'=>'BlogPost',
-            'type'=>'one',
-            'text'=> 'admin/menu.blog',
-            'url'=> 'BlogPost.index',
-            'icon'=>'fas fa-calendar-alt',
-            'roleView'=>'BlogPost_view',
-        ], #Blog Post
-
-        [
-            'view'=>true,
-            'sel_routs'=>'OurClient',
-            'type'=>'one',
-            'text'=> 'admin/menu.OurClient',
-            'url'=> 'OurClient.index',
-            'icon'=>'fas fa-users',
-            'roleView'=>'OurClient_view',
-        ], #Our Client
-
-        [
-            'view'=>true,
-            'sel_routs'=>'Banners',
-            'type'=>'one',
-            'text'=> 'admin/menu.web_banner',
-            'url'=> 'Banners.Banner.index',
-            'icon'=>'fas fa-images',
-            'roleView'=>'Banner_view',
-        ], #Banners
-
-        [
-            'view'=>true,
             'sel_routs'=>'Pages',
             'type'=>'one',
             'text'=> 'admin/menu.web_pages',
