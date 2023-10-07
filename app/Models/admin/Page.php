@@ -30,9 +30,5 @@ class Page extends Model implements TranslatableContract
     }
 
 
-    public function PageBanner(): HasMany
-    {
-        return $this->hasMany(Banner::class , 'category_id', 'banner_id')
-            ->where('is_active', true);
-    }
+
 }

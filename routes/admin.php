@@ -22,15 +22,7 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/',[HomeController::class,'Dashboard'])->name('admin.Dashboard');
 
-Route::get('/OurClient',[OurClientController::class,'index'])->name('OurClient.index');
-Route::get('/OurClient/create',[OurClientController::class,'create'])->name('OurClient.create');
-Route::get('/OurClient/edit/{id}',[OurClientController::class,'edit'])->name('OurClient.edit');
-Route::get('/OurClient/destroy/{id}',[OurClientController::class,'destroy'])->name('OurClient.destroy');
-Route::post('/OurClient/update/{id}',[OurClientController::class,'storeUpdate'])->name('OurClient.update');
-Route::get('/OurClient/emptyPhoto/{id}', [OurClientController::class,'emptyPhoto'])->name('OurClient.emptyPhoto');
-Route::get('/OurClient/Sort',[OurClientController::class,'Sort'])->name('OurClient.Sort');
-Route::post('/OurClient/SaveSort', [OurClientController::class,'SaveSort'])->name('OurClient.SaveSort');
-Route::get('/OurClient/Config',[OurClientController::class,'config'])->name('OurClient.Config');
+
 
 Route::get('/Category',[CategoryController::class,'index'])->name('webPro.category.index');
 Route::get('/Category/AddToWeb',[CategoryController::class,'AddCatToWeb'])->name('webPro.category.AddCatToWeb');
@@ -48,14 +40,6 @@ Route::get('/Category/Config',[CategoryController::class,'config'])->name('webPr
 Route::get('/Category/CatSort/{id}',[CategoryController::class,'CategorySort'])->name('webPro.category.CatSort');
 Route::post('/Category/SaveSort',[CategoryController::class,'CategorySaveSort'])->name('webPro.category.CategorySaveSort');
 
-
-
-Route::get('/Category/TableList/{id}',[CategoryTableController::class,'TableList'])->name('webPro.category.Table_list');
-Route::get('/Category/Table/edit/{id}',[CategoryTableController::class,'TableEdit'])->name('webPro.category.Table_edit');
-Route::post('/Category/Table/update/{id}',[CategoryTableController::class,'TableStoreUpdate'])->name('webPro.category.Table_update');
-Route::get('/Category/Table/destroy/{id}',[CategoryTableController::class,'TableDestroy'])->name('webPro.category.Table_destroy');
-Route::get('/Category/Table/Sort/{project_id}',[CategoryTableController::class,'TableSort'])->name('webPro.category.Table_Sort');
-Route::post('/Category/Table/SaveSort', [CategoryTableController::class,'TableSortSave'])->name('webPro.category.TableSortSave');
 
 
 Route::get('/Product',[ProductController::class,'index'])->name('webPro.Product.index');
@@ -80,77 +64,6 @@ Route::post('/Product/Table/update/{id}',[ProductTableController::class,'TableSt
 Route::get('/Product/Table/destroy/{id}',[ProductTableController::class,'TableDestroy'])->name('webPro.Product.Table_destroy');
 Route::get('/Product/Table/Sort/{project_id}',[ProductTableController::class,'TableSort'])->name('webPro.Product.Table_Sort');
 Route::post('/Product/Table/SaveSort', [ProductTableController::class,'TableSortSave'])->name('webPro.Product.TableSortSave');
-
-
-
-Route::get('/AttributeTables',[AttributeTableController::class,'index'])->name('webPro.AttributeTables.index');
-Route::get('/AttributeTables/create',[AttributeTableController::class,'create'])->name('webPro.AttributeTables.create');
-Route::get('/AttributeTables/edit/{id}',[AttributeTableController::class,'edit'])->name('webPro.AttributeTables.edit');
-Route::post('/AttributeTables/update/{id}',[AttributeTableController::class,'storeUpdate'])->name('webPro.AttributeTables.update');
-Route::get('/AttributeTables/destroy/{id}',[AttributeTableController::class,'destroy'])->name('webPro.AttributeTables.destroy');
-Route::get('/AttributeTables/SoftDelete/',[AttributeTableController::class,'SoftDeletes'])->name('webPro.AttributeTables.SoftDelete');
-Route::get('/AttributeTables/restore/{id}',[AttributeTableController::class,'restored'])->name('webPro.AttributeTables.restore');
-Route::get('/AttributeTables/force/{id}',[AttributeTableController::class,'ForceDeletes'])->name('webPro.AttributeTables.force');
-
-
-Route::get('/Blog',[BlogPostController::class,'index'])->name('BlogPost.index');
-Route::get('/Blog/create',[BlogPostController::class,'create'])->name('BlogPost.create');
-Route::get('/Blog/edit/{id}',[BlogPostController::class,'edit'])->name('BlogPost.edit');
-Route::get('/Blog/destroy/{id}',[BlogPostController::class,'destroy'])->name('BlogPost.destroy');
-Route::post('/Blog/update/{id}',[BlogPostController::class,'storeUpdate'])->name('BlogPost.update');
-Route::get('/Blog/emptyPhoto/{id}', [BlogPostController::class,'emptyPhoto'])->name('BlogPost.emptyPhoto');
-Route::get('/Blog/Config',[BlogPostController::class,'config'])->name('BlogPost.Config');
-
-Route::get('/Blog/SoftDelete/',[BlogPostController::class,'SoftDeletes'])->name('BlogPost.SoftDelete');
-Route::get('/Blog/restore/{id}',[BlogPostController::class,'restored'])->name('BlogPost.restore');
-Route::get('/Blog/force/{id}',[BlogPostController::class,'ForceDeletes'])->name('BlogPost.force');
-
-Route::get('/Blog/photos/{id}',[BlogPostController::class,'ListMorePhoto'])->name('BlogPost.More_Photos');
-Route::post('/Blog/saveSort', [BlogPostController::class,'sortPhotoSave'])->name('BlogPost.sortPhotoSave');
-Route::post('/Blog/AddMore',[BlogPostController::class,'AddMorePhotos'])->name('BlogPost.More_PhotosAdd');
-Route::get('/Blog/PhotoDel/{id}',[BlogPostController::class,'More_PhotosDestroy'])->name('BlogPost.More_PhotosDestroy');
-
-Route::get('/Banner/Config',[BannerCategoryController::class,'config'])->name('Banners.Config');
-Route::get('/Banner/Category',[BannerCategoryController::class,'index'])->name('Banners.BannerCat.index');
-Route::get('/Banner/Category/create',[BannerCategoryController::class,'create'])->name('Banners.BannerCat.create');
-Route::get('/Banner/Category/edit/{id}',[BannerCategoryController::class,'edit'])->name('Banners.BannerCat.edit');
-Route::get('/Banner/Category/destroy/{id}',[BannerCategoryController::class,'destroy'])->name('Banners.BannerCat.destroy');
-Route::post('/Banner/Category/update/{id}',[BannerCategoryController::class,'storeUpdate'])->name('Banners.BannerCat.update');
-Route::get('/Banner/Category/SoftDelete/',[BannerCategoryController::class,'SoftDeletes'])->name('Banners.BannerCat.SoftDelete');
-Route::get('/Banner/Category/restore/{id}',[BannerCategoryController::class,'restored'])->name('Banners.BannerCat.restore');
-Route::get('/Banner/Category/force/{id}',[BannerCategoryController::class,'ForceDeletes'])->name('Banners.BannerCat.force');
-
-Route::get('/Banner',[BannerController::class,'index'])->name('Banners.Banner.index');
-Route::get('/Banner/ListCategory/{Categoryid}',[BannerController::class,'ListCategory'])->name('Banners.Banner.ListCategory');
-Route::get('/Banner/create',[BannerController::class,'create'])->name('Banners.Banner.create');
-Route::get('/Banner/edit/{id}',[BannerController::class,'edit'])->name('Banners.Banner.edit');
-Route::get('/Banner/destroy/{id}',[BannerController::class,'destroy'])->name('Banners.Banner.destroy');
-Route::post('/Banner/update/{id}',[BannerController::class,'storeUpdate'])->name('Banners.Banner.update');
-Route::get('/Banner/Sort/{Categoryid}',[BannerController::class,'Sort'])->name('Banners.Banner.Sort');
-Route::post('/Banner/SaveSort', [BannerController::class,'SaveSort'])->name('Banners.Banner.SaveSort');
-
-
-Route::get('/Faq/Config',[FaqCategoryController::class,'config'])->name('FAQ.Config');
-Route::get('/Faq/Category',[FaqCategoryController::class,'index'])->name('FAQ.FaqCat.index');
-Route::get('/Faq/Category/create',[FaqCategoryController::class,'create'])->name('FAQ.FaqCat.create');
-Route::get('/Faq/Category/edit/{id}',[FaqCategoryController::class,'edit'])->name('FAQ.FaqCat.edit');
-Route::get('/Faq/Category/destroy/{id}',[FaqCategoryController::class,'destroy'])->name('FAQ.FaqCat.destroy');
-Route::post('/Faq/Category/update/{id}',[FaqCategoryController::class,'storeUpdate'])->name('FAQ.FaqCat.update');
-Route::get('/Faq/Category/SoftDelete/',[FaqCategoryController::class,'SoftDeletes'])->name('FAQ.FaqCat.SoftDelete');
-Route::get('/Faq/Category/restore/{id}',[FaqCategoryController::class,'restored'])->name('FAQ.FaqCat.restore');
-Route::get('/Faq/Category/force/{id}',[FaqCategoryController::class,'ForceDeletes'])->name('FAQ.FaqCat.force');
-Route::get('/Faq/emptyPhoto/{id}', [FaqCategoryController::class,'emptyPhoto'])->name('FAQ.FaqCat.emptyPhoto');
-Route::get('/Faq/Sort/{Categoryid}',[FaqController::class,'Sort'])->name('FAQ.FaqCat.Sort');
-
-
-Route::get('/Faq',[FaqController::class,'index'])->name('FAQ.FaqList.index');
-Route::get('/Faq/ListCategory/{Categoryid}',[FaqController::class,'ListCategory'])->name('FAQ.FaqList.ListCategory');
-Route::get('/Faq/create',[FaqController::class,'create'])->name('FAQ.FaqList.create');
-Route::get('/Faq/edit/{id}',[FaqController::class,'edit'])->name('FAQ.FaqList.edit');
-Route::get('/Faq/destroy/{id}',[FaqController::class,'destroy'])->name('FAQ.FaqList.destroy');
-Route::post('/Faq/update/{id}',[FaqController::class,'storeUpdate'])->name('FAQ.FaqList.update');
-Route::post('/Faq/SaveSort', [FaqController::class,'SaveSort'])->name('FAQ.FaqList.SaveSort');
-
 
 Route::get('/Pages', [PageController::class,'index'])->name('Pages.pageList.index');
 Route::get('/Pages/create', [PageController::class,'create'])->name('Pages.pageList.create');
@@ -187,9 +100,6 @@ Route::post('/ShopCategory/Table/update/{id}',[ShopCategoryController::class,'Ta
 Route::get('/ShopCategory/Table/destroy/{id}',[ShopCategoryController::class,'TableDestroy'])->name('Shop.shopCategory.Table_destroy');
 Route::get('/ShopCategory/Table/Sort/{project_id}',[ShopCategoryController::class,'TableSort'])->name('Shop.shopCategory.Table_Sort');
 Route::post('/ShopCategory/Table/SaveSort', [ShopCategoryController::class,'TableSortSave'])->name('Shop.shopCategory.TableSortSave');
-
-
-
 
 
 Route::get('/ShopProduct',[ShopProductController::class,'index'])->name('Shop.ShopProduct.index');

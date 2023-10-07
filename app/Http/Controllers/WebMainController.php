@@ -113,8 +113,6 @@ class WebMainController extends Controller
        $PagesList = Cache::remember('PagesList_Cash_'.app()->getLocale(),config('app.def_24h_cash'), function (){
             return  Page::where('is_active',true)
                 ->with('translation')
-                ->with('PageBanner')
-                ->withcount('PageBanner')
                 ->orderBy('postion','ASC')
                 ->get()
                 ->keyBy('cat_id')

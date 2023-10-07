@@ -73,19 +73,19 @@
                                         @foreach($MainCategory->recursive_product_shop as $product)
                                             <div class="item">
                                                 <x-shop.block-product :product="$product" :category="$product->product_with_category->first()"/>
-{{--                                                <div class="product_wrap">--}}
-{{--                                                    <div class="product_img">--}}
-{{--                                                        <a href="#">--}}
-{{--                                                            <img src="{{getPhotoPath($product->photo , 'categorie') }}" alt="product_img3">--}}
-{{--                                                        </a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="product_info">--}}
-{{--                                                        <h6 class="product_title text-right"><a href="{{route('Shop_ProductView',[$product->product_with_category->first()->id,$product->slug])}}">{{$product->name}}</a></h6>--}}
+                                                <div class="product_wrap">
+                                                    <div class="product_img">
+                                                        <a href="#">
+                                                            <img src="{{getPhotoPath($product->photo , 'categorie') }}" alt="product_img3">
+                                                        </a>
+                                                    </div>
+                                                    <div class="product_info">
+                                                        <h6 class="product_title text-right"><a href="{{route('Shop_ProductView',[$product->product_with_category->first()->id,$product->slug])}}">{{$product->name}}</a></h6>
 
-{{--                                                        <x-shop.print-product-price :product="$product"/>--}}
+                                                        <x-shop.print-product-price :product="$product"/>
 
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
+                                                    </div>
+                                                </div>
                                             </div>
                                         @endforeach
                                     </div>
@@ -96,7 +96,7 @@
                             @if($loop->index ==1 or $loop->index == 3 )
                                 <div class="col-xl-3 d-none d-xl-block">
                                     <div class="sale-banner">
-                                        <a class="hover_effect1 HomeImageCat" href="{{route('Page_WebCategoryView',$MainCategory->slug)}}">
+                                        <a class="hover_effect1 HomeImageCat" href="{{route('Shop_CategoryView',$MainCategory->slug)}}">
                                             <img src="{{getPhotoPath($MainCategory->photo)}}" alt="shop_banner_img10">
                                         </a>
                                     </div>

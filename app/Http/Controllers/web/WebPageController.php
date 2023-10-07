@@ -4,14 +4,11 @@ namespace App\Http\Controllers\web;
 use App\Http\Controllers\WebMainController;
 use App\Http\Requests\data\ContactUsFormRequest;
 use App\Http\Requests\data\NewsLetterRequest;
-use App\Models\admin\BlogPost;
+
 use App\Models\admin\Category;
 use App\Models\admin\config\WebPrivacy;
-use App\Models\admin\FaqCategory;
-use App\Models\admin\OurClient;
 use App\Models\admin\Product;
 use App\Models\data\ContactUsForm;
-use App\Models\User;
 use Illuminate\Support\Facades\View;
 
 
@@ -54,8 +51,8 @@ class WebPageController extends WebMainController
         $SinglePageView['banner_id'] = $PageMeta->banner_id ;
         $SinglePageView['banner_count'] = $PageMeta->page_banner_count ;
         $SinglePageView['banner_list'] = $PageMeta->PageBanner ;
-        $BlogPosts =  BlogPost::defWeb()->limit(3)->get();
-        return view('web.index',compact('SinglePageView','BlogPosts'));
+
+        return view('web.index',compact('SinglePageView'));
     }
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -75,24 +72,7 @@ class WebPageController extends WebMainController
         return view('web.page_about',compact('SinglePageView','PageMeta'));
     }
 
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #    OurClient
-    public function OurClient ()
-    {
-        $PageMeta = parent::getMeatByCatId('OurClient');
-        parent::printSeoMeta($PageMeta);
 
-        $SinglePageView = $this->SinglePageView ;
-        $SinglePageView['SelMenu'] = 'OurClient' ;
-        $SinglePageView['banner_id'] = $PageMeta->banner_id ;
-        $SinglePageView['banner_count'] = $PageMeta->page_banner_count ;
-        $SinglePageView['banner_list'] = $PageMeta->PageBanner ;
-        $SinglePageView['breadcrumb'] = "OurClient" ;
-
-        $OurClients = OurClient::defWeb()->paginate(12);
-
-        return view('web.page_our_client',compact('SinglePageView','PageMeta','OurClients'));
-    }
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #|||||||||||||||||||||||||||||||||||||| #    ContactUs
@@ -108,9 +88,8 @@ class WebPageController extends WebMainController
         $SinglePageView['banner_list'] = $PageMeta->PageBanner ;
         $SinglePageView['breadcrumb'] = "ContactUs" ;
 
-        $FaqCategories = FaqCategory::defWeb()
-            ->get();
-        return view('web.page_contact_us',compact('SinglePageView','PageMeta','FaqCategories'));
+
+        return view('web.page_contact_us',compact('SinglePageView','PageMeta'));
     }
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #|||||||||||||||||||||||||||||||||||||| #    ContactUsThanks
@@ -146,24 +125,7 @@ class WebPageController extends WebMainController
         return redirect()->route('Page_ContactUsThanks');
     }
 
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #    ContactUs
-    public function Careers ()
-    {
-        $PageMeta = parent::getMeatByCatId('ContactUs');
-        parent::printSeoMeta($PageMeta);
 
-        $SinglePageView = $this->SinglePageView ;
-        $SinglePageView['SelMenu'] = 'Careers' ;
-        $SinglePageView['banner_id'] = $PageMeta->banner_id ;
-        $SinglePageView['banner_count'] = $PageMeta->page_banner_count ;
-        $SinglePageView['banner_list'] = $PageMeta->PageBanner ;
-        $SinglePageView['breadcrumb'] = "ContactUs" ;
-
-        $FaqCategories = FaqCategory::defWeb()
-            ->get();
-        return view('web.page_contact_us',compact('SinglePageView','PageMeta','FaqCategories'));
-    }
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #|||||||||||||||||||||||||||||||||||||| #    TermsConditions
@@ -188,103 +150,10 @@ class WebPageController extends WebMainController
         return view('web.page_term_conditions',compact('SinglePageView','PageMeta','Terms'));
     }
 
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #    FaqList
-    public function FaqList ()
-    {
-
-        $PageMeta = parent::getMeatByCatId('FaqList');
-        parent::printSeoMeta($PageMeta);
-
-        $SinglePageView = $this->SinglePageView ;
-        $SinglePageView['SelMenu'] = 'FaqList' ;
-        $SinglePageView['banner_id'] = $PageMeta->banner_id ;
-        $SinglePageView['banner_count'] = $PageMeta->page_banner_count ;
-        $SinglePageView['banner_list'] = $PageMeta->PageBanner ;
-        $SinglePageView['breadcrumb'] = "FaqList" ;
-
-        $FaqCategories = FaqCategory::defWeb()->paginate(12);
 
 
-        return view('web.faq_list',compact('SinglePageView','PageMeta','FaqCategories'));
-    }
-
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #     FaqCatView
-    public function FaqCatView ($slug)
-    {
-        $slug = \AdminHelper::Url_Slug($slug);
-
-        $FaqCategory  = FaqCategory::defWeb()
-            ->whereTranslation('slug', $slug)
-            ->firstOrFail();
-
-        if ($FaqCategory->translate()->where('slug', $slug)->first()->locale != app()->getLocale()) {
-            return redirect()->route('Page_FaqCatView', $FaqCategory->translate()->slug);
-        }
-
-        $PageMeta = $FaqCategory ;
-        parent::printSeoMeta($PageMeta);
-
-        $SinglePageView = $this->SinglePageView ;
-        $SinglePageView['SelMenu'] = 'FaqList' ;
-        $SinglePageView['breadcrumb'] = "FaqCatView" ;
-        $SinglePageView['slug'] = 'faq/'.$FaqCategory->translate(webChangeLocale())->slug;
-
-        $FaqCategories = FaqCategory::defWeb()
-            ->where('id','!=',$FaqCategory->id)
-            ->get();
-
-        return view('web.faq_cat_view',compact('SinglePageView','PageMeta','FaqCategory','FaqCategories'));
-
-    }
-
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #    LatestNews
-    public function LatestNews ()
-    {
-
-        $PageMeta = parent::getMeatByCatId('LatestNews');
-        parent::printSeoMeta($PageMeta);
-
-        $SinglePageView = $this->SinglePageView ;
-        $SinglePageView['SelMenu'] = 'LatestNews' ;
-        $SinglePageView['banner_id'] = $PageMeta->banner_id ;
-        $SinglePageView['banner_count'] = $PageMeta->page_banner_count ;
-        $SinglePageView['banner_list'] = $PageMeta->PageBanner ;
-        $SinglePageView['breadcrumb'] = "LatestNews" ;
-
-        $BlogPosts =  BlogPost::defWeb()->paginate(12);
-
-        return view('web.blog_list',compact('SinglePageView','PageMeta','BlogPosts'));
-    }
-
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #    LatestNews
-    public function LatestNews_View ($slug)
-    {
-        $slug = \AdminHelper::Url_Slug($slug);
-        $Post  = BlogPost::defWeb()
-            ->whereTranslation('slug', $slug)
-            ->firstOrFail();
 
 
-        if ($Post->translate()->where('slug', $slug)->first()->locale != app()->getLocale()) {
-            return redirect()->route('LatestNews_View', $Post->translate()->slug);
-        }
-
-        $PageMeta = parent::getMeatByCatId('LatestNews');
-        parent::printSeoMeta($PageMeta);
-
-        $SinglePageView = $this->SinglePageView ;
-        $SinglePageView['SelMenu'] = 'LatestNews' ;
-        $SinglePageView['breadcrumb'] = "LatestNewsView" ;
-        $SinglePageView['slug'] = 'latest-news/'.$Post->translate(webChangeLocale())->slug ;
-
-        $BlogPosts =  BlogPost::defWeb()->where('id','!=',$Post->id)->limit(2)->get();
-
-        return view('web.blog_view',compact('SinglePageView','PageMeta','Post','BlogPosts'));
-    }
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #|||||||||||||||||||||||||||||||||||||| #    MainCategory
