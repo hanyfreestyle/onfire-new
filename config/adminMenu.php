@@ -115,45 +115,6 @@
             ],
         ], #Shop Product
 
-        [
-            'view'=>true,
-            'sel_routs'=>'webPro',
-            'type'=>'many',
-            'text'=> 'admin/menu.web_product_menu',
-            'icon'=>'fas fa-warehouse',
-            'roleView'=>'category_view',
-            'submenu'=>[
-                [
-                    'sel_routs'=> 'category',
-                    'url'=> 'webPro.category.index',
-                    'roleView'=>'category_view',
-                    'text'=> 'admin/menu.web_category',
-                    'icon'=>'fas fa-sitemap'
-                ],
-                [
-                    'sel_routs'=> 'Product',
-                    'url'=> 'webPro.Product.index',
-                    'roleView'=>'product_view',
-                    'text'=> 'admin/menu.web_product',
-                    'icon'=>'fas fa-shopping-cart'
-                ],
-                [
-                    'sel_routs'=> 'AttributeTables',
-                    'url'=> 'webPro.AttributeTables.index',
-                    'roleView'=>'category_view',
-                    'text'=> 'admin/menu.web_attribute_Table',
-                    'icon'=>'fas fa-table'
-                ],
-                [
-                    'sel_routs'=> 'categoryConfig',
-                    'url'=> 'webPro.categoryConfig.Config',
-                    'roleView'=>'category_edit',
-                    'text'=> 'admin/menu.setting',
-                    'icon'=>'fas fa-cogs'
-                ],
-
-            ],
-        ], #Web Product
 
         [
             'view'=>true,

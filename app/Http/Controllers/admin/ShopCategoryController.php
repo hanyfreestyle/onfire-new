@@ -5,14 +5,12 @@ namespace App\Http\Controllers\admin;
 use App\Helpers\AdminHelper;
 use App\Helpers\PuzzleUploadProcess;
 use App\Http\Controllers\AdminMainController;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\admin\CategoryRequest;
 use App\Http\Requests\admin\ShopCategoryRequest;
 use App\Models\admin\Category;
-use App\Models\admin\CategoryTable;
 use App\Models\admin\CategoryTranslation;
-use Cache;
+use App\Models\admin\Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 
@@ -61,7 +59,7 @@ class ShopCategoryController extends AdminMainController
             'TitlePage' =>  $this->PageTitle ,
             'selMenu'=> $this->selMenu,
             'prefix_Role'=> $this->PrefixRole ,
-            'restore'=> 0 ,
+            'restore'=> 1 ,
         ];
         $pageData = AdminHelper::returnPageDate($this->controllerName,$sendArr);
         $this->pageData = $pageData ;
@@ -74,7 +72,6 @@ class ShopCategoryController extends AdminMainController
     public function ClearCash(){
         foreach ( config('app.lang_file') as $key=>$lang){
             Cache::forget('ShopMenuCategory_Cash_'.$key);
-            Cache::forget('WebsiteMenuCategory_Cash_'.$key);
         }
     }
 
@@ -83,33 +80,37 @@ class ShopCategoryController extends AdminMainController
     public function index($id=null)
     {
 
-
         $pageData = $this->pageData;
         $pageData['ViewType'] = "List";
         $pageData['SubView'] = false;
+        $pageData['Trashed'] = Category::onlyTrashed()->count();
+        $pageData['ConfigUrl'] = route('Shop.shopCategoryConfig.Config');
         $trees = [];
         if( Route::currentRouteName()== 'Shop.shopCategory.index_Main')
         {
-            $Categories = self::getSelectQuery(Category::Admin_Def_Shop_query()->where('parent_id', null)->where('cat_shop', true));
+            $Categories = self::getSelectQuery(Category::def()->where('parent_id', null));
         }elseif (Route::currentRouteName()== 'Shop.shopCategory.SubCategory'){
-            $Categories = self::getSelectQuery(Category::Admin_Def_Shop_query()->where('parent_id',$id)->where('cat_shop',true));
+            $Categories = self::getSelectQuery(Category::def()->where('parent_id',$id));
             $trees = Category::find($id)->ancestorsAndSelf()->orderBy('depth','asc')->get() ;
             $pageData['SubView'] = true;
         }else{
-            $Categories = self::getSelectQuery(Category::Admin_Def_Shop_query()->where('cat_shop',true));
+            $Categories = self::getSelectQuery(Category::def());
         }
         return view('admin.shop.category_index',compact('pageData','Categories','trees'));
     }
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #     AddCatToShop
-    public function AddCatToShop()
+#|||||||||||||||||||||||||||||||||||||| #     SoftDeletes
+    public function SoftDeletes()
     {
-        $pageData = $this->pageData;
-        $pageData['ViewType'] = "List";
+        $pageData = $this->pageData ;
+        $pageData['ViewType'] = "deleteList";
         $pageData['SubView'] = false;
-        $Categories = self::getSelectQuery(Category::Admin_Def_Shop_query()->where('cat_shop',false));
-        return view('admin.shop.category_index',compact('pageData','Categories'));
+
+        $Categories = self::getSelectQuery(Category::onlyTrashed());
+        $trees = [];
+
+        return view('admin.shop.category_index',compact('pageData','Categories','trees'));
     }
 
 
@@ -147,14 +148,11 @@ class ShopCategoryController extends AdminMainController
         }
 
         $saveData->is_active = intval((bool) $request->input( 'is_active'));
-        $saveData->cat_shop = $request->input('cat_shop');
-        $saveData->cat_web = $request->input('cat_web');
         $saveData->save();
 
         $saveImgData = new PuzzleUploadProcess();
         $saveImgData->setCountOfUpload('2');
         $saveImgData->setUploadDirIs('category/'.$saveData->id);
-        //$saveImgData->setfileUploadName('photo');
         $saveImgData->setnewFileName($request->input('en.slug'));
         $saveImgData->UploadOne($request);
         $saveData = AdminHelper::saveAndDeletePhoto($saveData,$saveImgData);
@@ -188,19 +186,8 @@ class ShopCategoryController extends AdminMainController
             }
         }
 
-        if($saveData->cat_shop == false){
-            $trees = Category::find($id)->descendants()->pluck('id')->toArray()  ;
-            if(count($trees) > 0 ){
-                Category::whereIn("id", $trees)
-                    ->update([
-                        'cat_shop' => 0,
-                    ]);
-            }
-        }
-
-
-
         self::ClearCash();
+
         if($id == '0'){
 
             if($request->input('AddNewSet') !== null){
@@ -219,7 +206,7 @@ class ShopCategoryController extends AdminMainController
     public function destroy($id)
     {
         $deleteRow = Category::findOrFail($id);
-        $deleteRow = AdminHelper::DeleteAllPhotos($deleteRow);
+       # $deleteRow = AdminHelper::DeleteAllPhotos($deleteRow);
         $deleteRow->delete();
         self::ClearCash();
         return back()->with('confirmDelete',"");
@@ -244,7 +231,7 @@ class ShopCategoryController extends AdminMainController
         $rowData->save();
         self::ClearCash();
         return back();
-    }
+   }
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #|||||||||||||||||||||||||||||||||||||| #     config
@@ -267,27 +254,49 @@ class ShopCategoryController extends AdminMainController
         $pageData['ViewType'] = "List";
         $Category = [];
         if($id == 0){
-            $Categories = self::getSelectQuery(Category::Admin_Def_Shop_query()->where('parent_id', null)->where('cat_shop', true)->orderBy('postion_shop'));
+            $Categories = self::getSelectQuery(Category::def()->where('parent_id', null)->orderBy('postion'));
         }else{
             $Category =  Category::findOrNew($id);
-            $Categories = self::getSelectQuery(Category::Admin_Def_Shop_query()->where('parent_id', $Category->id)->where('cat_shop', true)->orderBy('postion_shop'));
+            $Categories = self::getSelectQuery(Category::def()->where('parent_id', $Category->id)->orderBy('postion'));
         }
         return view('admin.shop.category_sort',compact('pageData','Categories','Category'));
     }
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #     TableSortSave
+#|||||||||||||||||||||||||||||||||||||| #     CategorySaveSort
     public function CategorySaveSort(Request $request){
         $positions = $request->positions;
         foreach($positions as $position) {
             $id = $position[0];
             $newPosition = $position[1];
             $saveData =  Category::findOrFail($id) ;
-            $saveData->postion_shop = $newPosition;
+            $saveData->postion = $newPosition;
             $saveData->save();
         }
         self::ClearCash();
         return response()->json(['success'=>$positions]);
+    }
+
+
+
+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#|||||||||||||||||||||||||||||||||||||| #     Restore
+    public function restored($id)
+    {
+        Category::onlyTrashed()->where('id',$id)->restore();
+        self::ClearCash();
+        return back()->with('restore',"");
+    }
+
+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#|||||||||||||||||||||||||||||||||||||| #     ForceDeletes
+    public function ForceDeletes($id)
+    {
+        $deleteRow =  Category::onlyTrashed()->where('id',$id)->firstOrFail();
+        $deleteRow = AdminHelper::DeleteAllPhotos($deleteRow);
+        $deleteRow->forceDelete();
+        self::ClearCash();
+        return back()->with('confirmDelete',"");
     }
 
 }

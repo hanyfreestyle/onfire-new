@@ -34,8 +34,6 @@ class ShopCategoryRequest extends FormRequest
 
         $rules =[
             'parent_id'=> "required",
-            'cat_shop'=> "required",
-            'cat_web'=> "required",
         ];
 
         foreach(config('app.shop_lang') as $key=>$lang){

@@ -14,16 +14,13 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('parent_id')->nullable();
-            $table->integer('cat_shop')->default(1);
-            $table->integer('cat_web')->default(0);
-            $table->integer('cat_web_data')->default(0);
             $table->string("photo")->nullable();
             $table->string("photo_thum_1")->nullable();
             $table->string("icon")->nullable();
             $table->boolean("is_active")->default(true);
-            $table->integer('postion_shop')->default(0);
-            $table->integer('postion_web')->default(0);
+            $table->integer('postion')->default(0);
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('parent_id')->references('id')->on('categories')->onDelete('RESTRICT');
         });
     }

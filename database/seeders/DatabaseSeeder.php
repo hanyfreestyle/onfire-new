@@ -55,10 +55,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call(CategorySeeder::class);
         $this->call(CategoryTranslationSeeder::class);
-        $this->call(ProductSeeder::class);
-        $this->call(ProductTranslationSeeder::class);
-        $this->call(ProductPhotoSeeder::class);
-        $this->call(ProductCategorySeeder::class);
+//        $this->call(ProductSeeder::class);
+//        $this->call(ProductTranslationSeeder::class);
+//        $this->call(ProductPhotoSeeder::class);
+//        $this->call(ProductCategorySeeder::class);
 
 
         $this->call(PageSeeder::class);

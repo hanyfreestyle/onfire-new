@@ -6,26 +6,32 @@
 @section('content')
     <x-breadcrumb-def :pageData="$pageData"/>
 
-    <x-html-section>
-        <div class="row mb-3">
-            <div class="col-12 text-left">
-                <x-action-button url="{{route('Shop.shopCategory.AddCatToShop')}}"  bg="p"  print-lable="{{ __('admin/shop.cat_addshop') }}"  icon="fas fa-plus-square"  />
-                <x-action-button url="{{route('Shop.shopCategory.CatSort',0)}}"  type="sort"  />
+    @if($pageData['ViewType'] != 'deleteList' )
+        <x-html-section>
+            <div class="row mb-3">
+                <div class="col-12 text-left">
+                    <x-action-button url="{{route('Shop.shopCategory.CatSort',0)}}"  type="sort"  />
+                </div>
             </div>
-        </div>
-    </x-html-section>
+        </x-html-section>
+
+        <x-html-section>
+            <ol class="breadcrumb breadcrumb_menutree">
+                <li class="breadcrumb-item"><a href="{{route($PrefixRoute.'.index_Main')}}">{{__('admin/def.main_category')}}</a></li>
+                @if($pageData['SubView'])
+                    @foreach($trees as $tree)
+                        <li class="breadcrumb-item"><a href="{{route($PrefixRoute.'.SubCategory',$tree->id)}}">{{ $tree->name }}</a></li>
+                    @endforeach
+                @endif
+            </ol>
+        </x-html-section>
+
+    @endif
 
 
-    <x-html-section>
-        <ol class="breadcrumb breadcrumb_menutree">
-            <li class="breadcrumb-item"><a href="{{route($PrefixRoute.'.index_Main')}}">{{__('admin/def.main_category')}}</a></li>
-            @if($pageData['SubView'])
-                @foreach($trees as $tree)
-                    <li class="breadcrumb-item"><a href="{{route($PrefixRoute.'.SubCategory',$tree->id)}}">{{ $tree->name }}</a></li>
-                @endforeach
-            @endif
-        </ol>
-    </x-html-section>
+
+
+
 
     <x-html-section>
         <x-ui-card  :page-data="$pageData" >
@@ -39,14 +45,21 @@
                             <th class="TD_20">#</th>
                             <th class="TD_20"></th>
                             <th>{{__('admin/def.form_name_ar')}}</th>
-                            <th class="tbutaction TD_50"></th>
-                            @can($PrefixRole.'_edit')
+                            @if($pageData['ViewType'] == 'deleteList')
+                                <th>{{ __('admin/page.del_date') }}</th>
+                                <th></th>
+                                <th></th>
+                            @else
                                 <th class="tbutaction TD_50"></th>
-                                <th class="tbutaction TD_50"></th>
-                            @endcan
-                            @can($PrefixRole.'_delete')
-                                <th class="tbutaction TD_50"></th>
-                            @endcan
+                                @can($PrefixRole.'_edit')
+                                    <th class="tbutaction TD_50"></th>
+                                    <th class="tbutaction TD_50"></th>
+                                @endcan
+                                @can($PrefixRole.'_delete')
+                                    <th class="tbutaction TD_50"></th>
+                                @endcan
+                            @endif
+
                         </tr>
                         </thead>
                         <tbody>
@@ -54,25 +67,30 @@
                             <tr>
                                 <td>{{$Category->id}}</td>
                                 <td class="tc">{!!  \App\Helpers\AdminHelper::printTableImage($Category,'photo_thum_1') !!} </td>
-                                <td>{!! \App\Helpers\AdminHelper::print_count_name_shop('ar',$Category,$PrefixRoute.".SubCategory") !!}</td>
+                                <td>{!! \App\Helpers\AdminHelper::print_category_name('ar',$Category,$PrefixRoute.".SubCategory") !!}</td>
 
-                                <td class="tc" >{!! is_active($Category->is_active) !!}</td>
-                                @can($PrefixRole.'_edit')
-                                    <td class="tc">
-                                        @if($Category->admin_children_shop_count > 0)
-                                            <x-action-button url="{{route('Shop.shopCategory.CatSort',$Category->id)}}" :tip="true"  type="sort"    />
+                                @if($pageData['ViewType'] == 'deleteList')
+                                    <td>{{$Category->deleted_at}}</td>
+                                    <td class="tc"><x-action-button url="{{route($PrefixRoute.'.restore',$Category->id)}}" type="restor" /></td>
+                                    <td class="tc"><x-action-button url="#" id="{{route($PrefixRoute.'.force',$Category->id)}}" type="deleteSweet"/></td>
+                                @else
+                                    <td class="tc" >{!! is_active($Category->is_active) !!}</td>
+                                    @can($PrefixRole.'_edit')
+                                        <td class="tc">
+                                            @if($Category->children_count > 0)
+                                                <x-action-button url="{{route('Shop.shopCategory.CatSort',$Category->id)}}" :tip="true"  type="sort"    />
+                                            @endif
+                                        </td>
+                                        <td class="tc"><x-action-button url="{{route($PrefixRoute.'.edit',$Category->id)}}" type="edit" :tip="true" /></td>
+                                    @endcan
+                                    @can($PrefixRole.'_delete')
+                                        @if($Category->children_count == 0)
+                                            <td class=""><x-action-button url="#" id="{{route($PrefixRoute.'.destroy',$Category->id)}}" type="deleteSweet" :tip="true" /></td>
+                                        @else
+                                            <td class=""><x-action-button url="#" id="sometext" type="deleteSweet_err" :tip="true" /></td>
                                         @endif
-                                    </td>
-                                    <td class="tc"><x-action-button url="{{route($PrefixRoute.'.edit',$Category->id)}}" type="edit" :tip="true" /></td>
-                                @endcan
-
-                                @can($PrefixRole.'_delete')
-                                    @if($Category->children_count == 0)
-                                        <td class=""><x-action-button url="#" id="{{route($PrefixRoute.'.destroy',$Category->id)}}" type="deleteSweet" :tip="true" /></td>
-                                    @else
-                                        <td class=""><x-action-button url="#" id="sometext" type="deleteSweet_err" :tip="true" /></td>
-                                    @endif
-                                @endcan
+                                    @endcan
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>

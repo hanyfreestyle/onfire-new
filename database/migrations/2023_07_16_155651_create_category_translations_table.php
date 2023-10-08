@@ -21,8 +21,6 @@ return new class extends Migration
 
             $table->string('g_title')->nullable();
             $table->text('g_des')->nullable();
-            $table->string('body_h1')->nullable();
-            $table->string('breadcrumb')->nullable();
 
             $table->unique(['category_id','locale']);
             $table->unique(['locale','slug']);
