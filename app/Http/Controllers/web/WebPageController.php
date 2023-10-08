@@ -21,57 +21,18 @@ class WebPageController extends WebMainController
     {
         parent::__construct();
         $stopCash =0;
-        $MenuCategory = self::getMenuCategory($stopCash);
-        View::share('MenuCategory', $MenuCategory);
-
-       // dd($MenuCategory);
-
+        $ShopMenuCategory = self::getShopMenuCategory($stopCash);
+        View::share('ShopMenuCategory', $ShopMenuCategory);
 
         $SinglePageView = [
             'SelMenu' => '',
             'slug' => null,
             'banner_id' => null,
             'breadcrumb' => 'home',
-
         ];
-
 
         $this->SinglePageView = $SinglePageView ;
     }
-
-
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #    HomePage
-    public function HomePage()
-    {
-        $PageMeta = parent::getMeatByCatId('HomePage');
-        parent::printSeoMeta($PageMeta);
-        $SinglePageView = $this->SinglePageView ;
-        $SinglePageView['SelMenu'] = 'HomePage' ;
-        $SinglePageView['banner_id'] = $PageMeta->banner_id ;
-        $SinglePageView['banner_count'] = $PageMeta->page_banner_count ;
-        $SinglePageView['banner_list'] = $PageMeta->PageBanner ;
-
-        return view('web.index',compact('SinglePageView'));
-    }
-
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #    AboutUs
-    public function AboutUs ()
-    {
-        $PageMeta = parent::getMeatByCatId('AboutUs');
-        parent::printSeoMeta($PageMeta);
-
-        $SinglePageView = $this->SinglePageView ;
-        $SinglePageView['SelMenu'] = 'AboutUs' ;
-        $SinglePageView['banner_id'] = $PageMeta->banner_id ;
-        $SinglePageView['banner_count'] = $PageMeta->page_banner_count ;
-        $SinglePageView['banner_list'] = $PageMeta->PageBanner ;
-        $SinglePageView['breadcrumb'] = "AboutUs" ;
-
-        return view('web.page_about',compact('SinglePageView','PageMeta'));
-    }
-
 
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

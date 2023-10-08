@@ -1,4 +1,4 @@
-@extends('web.layouts.app')
+@extends('shop.layouts.app')
 @section('breadcrumb')
     <x-website.breadcrumb >
         {{ Breadcrumbs::render($SinglePageView['breadcrumb']) }}
@@ -160,12 +160,6 @@
 
             </div>
         </div>
-    </div>
-
-
-
-    <div class="section mt-3 mt-lg-3 pb-5">
-        <x-website.block-faq-carousel :faq-categories="$FaqCategories" />
     </div>
 
 @endsection

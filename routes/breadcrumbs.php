@@ -10,8 +10,7 @@ use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
 
 Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
-   // $trail->push(__('web/menu.home'), route('Page_HomePage'));
-    $trail->push('<i class="fa fa-home"></i>', route('Page_HomePage'));
+    $trail->push('<i class="fa fa-home"></i>', route('Shop_HomePage'));
 });
 
 Breadcrumbs::for('AboutUs', function (BreadcrumbTrail $trail) {
@@ -20,10 +19,7 @@ Breadcrumbs::for('AboutUs', function (BreadcrumbTrail $trail) {
 });
 
 
-Breadcrumbs::for('OurClient', function (BreadcrumbTrail $trail) {
-    $trail->parent('home');
-    $trail->push(__('web/menu.Our_Client'), route('Page_OurClient'));
-});
+
 
 Breadcrumbs::for('ContactUs', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
