@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 12, 2023 at 03:40 AM
+-- Generation Time: Oct 08, 2023 at 02:46 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `a_etman`
+-- Database: `onfire_new`
 --
 
 --
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 
 INSERT INTO `config_upload_filter_sizes` (`id`, `filter_id`, `type`, `new_w`, `new_h`, `canvas_back`, `get_more_option`, `get_add_text`, `get_watermark`) VALUES
 (1, 2, 4, 500, 335, NULL, 0, 0, 0),
-(2, 4, 4, 400, 400, '#FFFFFF', 0, 0, 0),
+(2, 4, 4, 350, 350, '#FFFFFF', 0, 0, 0),
 (3, 5, 4, 800, 600, '#ffffff', 0, 0, 0),
 (4, 5, 4, 320, 240, '#ffffff', 0, 0, 0),
 (5, 6, 4, 900, 473, '#FFFFFF', 0, 0, 0),
