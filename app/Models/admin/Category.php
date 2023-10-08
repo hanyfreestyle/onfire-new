@@ -42,16 +42,25 @@ class Category extends Model implements TranslatableContract
         return $this->hasMany(Category::class , 'parent_id', 'id' )
             ->with('translations');
     }
+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#|||||||||||||||||||||||||||||||||||||| #     scopeRoot
+    public function scopeRoot(Builder $query): Builder
+    {
+        return $query->whereNull('parent_id');
+    }
 
-//
-//
-//
-//#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//#|||||||||||||||||||||||||||||||||||||| #     scopeRoot
-//    public function scopeRootCategory(Builder $query): Builder
-//    {
-//        return $query->whereNull('parent_id');
-//    }
+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#|||||||||||||||||||||||||||||||||||||| #
+    public function recursive_product_shop()
+    {
+        return $this->belongsToManyOfDescendantsAndSelf(Product::class, 'category_product')
+            ->with('translation')
+            ->with('categories')
+            ->where('is_active',true)
+            ->where('is_archived',false);
+    }
+
+
 //
 //#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //#|||||||||||||||||||||||||||||||||||||| #  Web_Shop_Def_Query
@@ -90,18 +99,7 @@ class Category extends Model implements TranslatableContract
 //    }
 //
 //
-//#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//#|||||||||||||||||||||||||||||||||||||| #
-//    public function recursive_product_shop()
-//    {
-//        return $this->belongsToManyOfDescendantsAndSelf(Product::class, 'product_category')
-//            ->with('translation')
-//            ->with('product_with_category')
-//            ->where('pro_shop',true)
-//            ->where('is_active',true)
-//            ->where('is_archived',false);
-//    }
-//
+
 //#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //#|||||||||||||||||||||||||||||||||||||| #  Web_Shop_Def_Query
 //    public function scopeWebSite_Def_Query(Builder $query): Builder

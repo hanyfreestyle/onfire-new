@@ -12,8 +12,8 @@ use App\Models\admin\Location;
 use App\Models\admin\Page;
 use App\Models\admin\Product;
 use App\Models\data\DataCity;
-use Cache;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 use Phattarachai\LaravelMobileDetect\Agent;
 
@@ -219,23 +219,32 @@ class WebMainController extends Controller
 #|||||||||||||||||||||||||||||||||||||| #     getMenuCategory
     static function getShopMenuCategory($stopCash=0){
 
-        if($stopCash){
-            $MenuCategory = Category::Web_Shop_Def_Query()->RootCategory()
-                ->withCount('web_shop_children')
-                ->with('web_shop_children')
-                ->with('recursive_product_shop')
-                ->orderBy('postion_shop','ASC')
-                ->get();
-        }else{
-            $MenuCategory = Cache::remember('ShopMenuCategory_Cash_'.app()->getLocale(),config('app.def_24h_cash'),
-                function (){ return   Category::Web_Shop_Def_Query()->RootCategory()
-                    ->withCount('web_shop_children')
-                    ->with('web_shop_children')
-                    ->with('recursive_product_shop')
-                    ->orderBy('postion_shop','ASC')
-                    ->get();
-                });
-        }
+//        if($stopCash){
+//            $MenuCategory = Category::Web_Shop_Def_Query()->RootCategory()
+//                ->withCount('web_shop_children')
+//                ->with('web_shop_children')
+//                ->with('recursive_product_shop')
+//                ->orderBy('postion_shop','ASC')
+//                ->get();
+//        }else{
+//            $MenuCategory = Cache::remember('ShopMenuCategory_Cash_'.app()->getLocale(),config('app.def_24h_cash'),
+//                function (){ return   Category::def()->root()
+//                    ->withCount('children')
+//                    ->with('children')
+//                    ->with('recursive_product_shop')
+//                    ->orderBy('postion','ASC')
+//                    ->get();
+//                });
+//        }
+
+        $MenuCategory = Category::def()->root()
+            ->withCount('children')
+            ->with('children')
+            ->with('recursive_product_shop')
+            ->orderBy('postion','ASC')
+            ->get();
+
+//        dd($MenuCategory);
 
         return $MenuCategory ;
     }

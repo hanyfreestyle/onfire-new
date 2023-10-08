@@ -45,6 +45,9 @@ class ShopPageController extends WebMainController
 #|||||||||||||||||||||||||||||||||||||| #    HomePage
     public function Shop_HomePage()
     {
+
+
+       // dd('hi');
         $PageMeta = parent::getMeatByCatId('Shop_HomePage');
         parent::printSeoMeta($PageMeta);
         $SinglePageView = $this->SinglePageView ;
