@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 08, 2023 at 03:09 PM
+-- Generation Time: Oct 08, 2023 at 03:58 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -30,7 +30,7 @@ INSERT INTO `config_upload_filter_sizes` (`id`, `filter_id`, `type`, `new_w`, `n
 (2, 4, 4, 350, 350, '#FFFFFF', 0, 0, 0),
 (3, 5, 4, 800, 600, '#ffffff', 0, 0, 0),
 (4, 5, 4, 320, 240, '#ffffff', 0, 0, 0),
-(5, 6, 4, 900, 473, '#FFFFFF', 0, 0, 0),
+(5, 6, 4, 100, 100, '#FFFFFF', 0, 0, 0),
 (6, 7, 4, 420, 205, '#FFFFFF', 0, 0, 0),
 (7, 8, 5, 350, 350, '#FFFFFF', 0, 0, 0);
 COMMIT;

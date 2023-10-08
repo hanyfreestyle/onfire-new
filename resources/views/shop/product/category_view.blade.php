@@ -17,11 +17,11 @@
                     </div>
 
 
-                    @if($Category->web_shop_children_count > 0)
+                    @if($Category->children_count > 0)
                         <div class="row mt-3">
                             <div class="col-12">
                                 <div class="row Shop_CategoryList">
-                                    @foreach($Category->web_shop_children as $SubCategory)
+                                    @foreach($Category->children as $SubCategory)
                                         <div class="col-lg-4 col-md-4 col-6  Shop_CategoryI">
                                             <div class="product">
                                                 <a href="{{route('Shop_CategoryView',$SubCategory->slug)}}">
@@ -32,7 +32,7 @@
                                             </div>
                                             <h2 class="cat_name crop_text_1"><a href="{{route('Shop_CategoryView',$SubCategory->slug)}}">{{$SubCategory->name}}
                                                     @if(count($SubCategory->recursive_product_shop) > 0 )
-                                                       <span> ({{ count($SubCategory->recursive_product_shop) }}) </span>
+                                                        <span> ({{ count($SubCategory->recursive_product_shop) }}) </span>
                                                     @endif</a></h2>
                                         </div>
                                     @endforeach
@@ -43,8 +43,8 @@
 
 
 
-                    @if($Category->category_with_product_shop_count > 0)
-                        @if($Category->children_shop_count > 0 )
+                    @if($Category->products_count > 0)
+                        @if($Category->children_count > 0 )
                             <div class="row">
                                 <div class="col-12">
                                     <h2 class="def_h2">{{__('web/def.products')}}</h2>
@@ -57,9 +57,9 @@
                             <div class="col-12">
                                 <x-website.block-list-grid/>
                                 <div class="row shop_container shop_container_50  mt-lg-3">
-                                    @foreach($Category->category_with_product_shop as $Product )
+                                    @foreach($Category->products as $Product )
                                         <div class="col-lg-4 col-md-4 col-6">
-                                            <x-shop.block-product :product="$Product" :category="$Product->product_with_category->first()"/>
+                                            <x-shop.block-product :product="$Product" :category="$Product->categories->first()"/>
                                         </div>
                                     @endforeach
                                 </div>
@@ -68,17 +68,10 @@
                     @endif
 
                 </div>
-
                 @include('shop.product.category_view_sidebar')
-
             </div>
         </div>
     </div>
-
-
-
-
-
 @endsection
 
 

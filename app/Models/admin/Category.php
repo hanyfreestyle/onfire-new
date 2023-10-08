@@ -61,7 +61,19 @@ class Category extends Model implements TranslatableContract
     }
 
 
+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#|||||||||||||||||||||||||||||||||||||| #  products
+    public function products()
+    {
+        return $this->belongsToMany(Product::class,'category_product','category_id','product_id')
+            ->where('is_active',true)
+            ->where('is_archived',false)
+            ->with('translation')
+            ;
+    }
+
 //
+
 //#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //#|||||||||||||||||||||||||||||||||||||| #  Web_Shop_Def_Query
 //    public function scopeWeb_Shop_Def_Query(Builder $query): Builder
@@ -86,17 +98,7 @@ class Category extends Model implements TranslatableContract
 //            ->with('translations');
 //    }
 //
-//#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//    #|||||||||||||||||||||||||||||||||||||| #  category_with_product_shop
-//    public function category_with_product_shop()
-//    {
-//        return $this->belongsToMany(Product::class,'product_category','category_id','product_id')
-//            ->where('is_active',true)
-//            ->where('is_archived',false)
-//            ->where('pro_shop',true)
-//            ->with('translation')
-//            ;
-//    }
+
 //
 //
 

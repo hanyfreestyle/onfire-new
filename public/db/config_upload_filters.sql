@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 08, 2023 at 03:09 PM
+-- Generation Time: Oct 08, 2023 at 03:58 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -31,7 +31,7 @@ INSERT INTO `config_upload_filters` (`id`, `name`, `type`, `convert_state`, `qua
 (3, 'FavIcon', 4, 1, 85, 40, 40, '#ffffff', 0, 0, 0, 0, '0', 0, '5', 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, '2023-09-06 21:57:01', '2023-09-06 21:57:01'),
 (4, 'صورة المجموعة', 4, 1, 85, 700, 700, '#FFFFFF', 0, 0, 0, 0, '0', 0, '5', 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, '2023-09-06 21:57:01', '2023-09-18 05:33:44'),
 (5, 'PhotoGallery', 4, 1, 85, 1024, 768, '#ffffff', 0, 0, 0, 0, '0', 0, '5', 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, '2023-09-06 21:57:01', '2023-09-06 21:57:01'),
-(6, 'اخر الاخبار', 4, 1, 85, 450, 237, '#FFFFFF', 0, 0, 0, 0, '0', 0, '5', 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, '2023-09-07 11:27:22', '2023-09-07 11:27:22'),
+(6, 'Icon', 4, 1, 85, 300, 300, '#FFFFFF', 0, 0, 0, 0, '0', 0, '5', 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, '2023-09-07 11:27:22', '2023-10-08 12:43:19'),
 (7, 'بانر', 4, 1, 85, 840, 410, '#FFFFFF', 0, 0, 0, 0, '0', 0, '5', 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, '2023-09-11 09:36:55', '2023-09-11 10:03:12'),
 (8, 'صورة المنتج', 5, 1, 85, 1000, 1000, '#FFFFFF', 0, 0, 0, 0, '0', 0, '5', 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, '2023-09-11 17:01:05', '2023-09-11 17:01:39');
 COMMIT;

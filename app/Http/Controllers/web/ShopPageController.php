@@ -42,8 +42,6 @@ class ShopPageController extends WebMainController
     public function Shop_HomePage()
     {
 
-
-       // dd('hi');
         $PageMeta = parent::getMeatByCatId('Shop_HomePage');
         parent::printSeoMeta($PageMeta);
         $SinglePageView = $this->SinglePageView ;
@@ -52,16 +50,13 @@ class ShopPageController extends WebMainController
         $SinglePageView['banner_count'] = $PageMeta->page_banner_count ;
         $SinglePageView['banner_list'] = $PageMeta->PageBanner ;
 
-
         $MainCategoryPro  = Category::def()->root()
             ->with('recursive_product_shop')
             ->limit(4)
             ->get();
-
         if(isset($_GET['mobile'])){
             Session::put('mobileview',$_GET['mobile']);
         }
-
         return view('shop.index',compact('SinglePageView','MainCategoryPro'));
     }
 
@@ -71,13 +66,6 @@ class ShopPageController extends WebMainController
     public function Recently ()
     {
 
-//        $updatePro = Product::all();
-//        foreach ($updatePro as $pro){
-//            $pro->qty_max = 5;
-//            $pro->qty_left = 10;
-//            $pro->save();
-//        }
-
         $PageMeta = parent::getMeatByCatId('Shop_Recently');
         parent::printSeoMeta($PageMeta);
 
@@ -85,16 +73,10 @@ class ShopPageController extends WebMainController
         $SinglePageView['SelMenu'] = 'Shop_Recently' ;
         $SinglePageView['breadcrumb'] = "Shop_Recently" ;
 
-        $Recently = Product::Web_Shop_Def_Query()
-            ->with('product_with_category')
-            ->inRandomOrder()
-            ->limit(9)->get();
-
-
-        $Recently=Product::Web_Shop_Def_Query()
-            ->with('product_with_category')
-            ->whereHas('product_with_category',function($query){
-                $query->where('category_id',39);
+        $Recently=Product::def()
+            ->with('categories')
+            ->whereHas('categories',function($query){
+                $query->where('category_id',2);
             })->orderby('id','desc')->get();
 
         return view('shop.product.recently_arrived',compact('SinglePageView','PageMeta','Recently'));
@@ -112,32 +94,14 @@ class ShopPageController extends WebMainController
         $SinglePageView['SelMenu'] = 'Shop_WeekOffers' ;
         $SinglePageView['breadcrumb'] = "Shop_WeekOffers" ;
 
-        $BestDeals=Product::Web_Shop_Def_Query()
-            ->with('product_with_category')
+        $BestDeals=Product::def()
+            ->with('categories')
             ->limit(12)
             ->get();
 
         return view('shop.product.week',compact('SinglePageView','BestDeals'));
     }
 
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #    BestDeals
-    public function BestDeals()
-    {
-        $PageMeta = parent::getMeatByCatId('Shop_BestDeals');
-        parent::printSeoMeta($PageMeta);
-
-        $SinglePageView = $this->SinglePageView ;
-        $SinglePageView['SelMenu'] = 'Shop_BestDeals' ;
-        $SinglePageView['breadcrumb'] = "Shop_BestDeals" ;
-
-
-        $BestDeals = Product::Web_Shop_Def_Query()
-            ->with('product_with_category')
-            ->limit(6)->get();  #->inRandomOrder()
-
-        return view('shop.best-deals',compact('SinglePageView','BestDeals'));
-    }
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #|||||||||||||||||||||||||||||||||||||| #    MainCategory
@@ -153,10 +117,9 @@ class ShopPageController extends WebMainController
         $SinglePageView['breadcrumb'] = "Shop_MainCategory" ;
         $SinglePageView['SelMenu'] = 'MainCategory' ;
 
-        $MainCategoryProduct  = Category::Web_Shop_Def_Query()
-            ->where('parent_id',null)
+        $MainCategoryProduct  = Category::def()->root()
             ->with('recursive_product_shop')
-            ->orderBy('postion_shop')
+            ->orderBy('postion')
             ->get();
 
         return view('shop.product.category_main',compact('SinglePageView','PageMeta','MainCategoryProduct'));
@@ -168,12 +131,12 @@ class ShopPageController extends WebMainController
     {
         $slug = \AdminHelper::Url_Slug($slug);
 
-        $Category  = Category::Web_Shop_Def_Query()
+        $Category  = Category::def()
             ->whereTranslation('slug', $slug)
-            ->withCount('web_shop_children')
-            ->with('web_shop_children')
-            ->withCount('category_with_product_shop')
-            ->with('category_with_product_shop')
+            ->withCount('children')
+            ->with('children')
+            ->withCount('products')
+            ->with('products')
             ->firstOrFail();
 
         $PageMeta = $Category ;
@@ -182,8 +145,6 @@ class ShopPageController extends WebMainController
         $SinglePageView = $this->SinglePageView ;
         $SinglePageView['SelMenu'] = 'MainCategory' ;
         $SinglePageView['breadcrumb'] = "Shop_CategoryView" ;
-        $SinglePageView['slug'] = 'category/'.$Category->translate(webChangeLocale())->slug;
-
         $trees = Category::find($Category->id)->ancestorsAndSelf()->orderBy('depth','asc')->get() ;
 
         return view('shop.product.category_view',compact('SinglePageView','PageMeta','Category','trees'));
@@ -198,35 +159,36 @@ class ShopPageController extends WebMainController
         $slug = \AdminHelper::Url_Slug($slug);
         $catid = intval($catid);
 
-        $Category  = Category::Web_Shop_Def_Query()
+        $Category  = Category::def()
             ->where('id',$catid)
-            ->withCount('web_shop_children')
-            ->with('web_shop_children')
-            ->withCount('category_with_product_shop')
-            ->with('category_with_product_shop')
+            ->withCount('children')
+            ->with('children')
+            ->withCount('products')
+            ->with('products')
             ->firstOrFail();
 
-        $Product  = Product::Web_Shop_Def_Query()
-            ->whereHas('product_with_category',function($query) use ($catid){
+        $Product  = Product::def()
+            ->whereHas('categories',function($query) use ($catid){
                 $query->where('category_id',$catid);
             })
             ->whereTranslation('slug', $slug)
-            ->withCount('product_with_category')
-            ->with('product_with_category')
+            ->withCount('categories')
+            ->with('categories')
             ->withCount('more_photos')
             ->with('more_photos')
             ->firstOrFail();
 
 
-        $ReletedProducts = Product::Web_Shop_Def_Query()
-            ->where('id','!=',$Product->id)
-            ->whereHas('product_with_category',function($query) use ($catid){
-                $query->where('category_id',$catid);
-            })
-            ->inRandomOrder()
-            ->limit(8)
-            ->get();
+//        $ReletedProducts = Product::Web_Shop_Def_Query()
+//            ->where('id','!=',$Product->id)
+//            ->whereHas('product_with_category',function($query) use ($catid){
+//                $query->where('category_id',$catid);
+//            })
+//            ->inRandomOrder()
+//            ->limit(8)
+//            ->get();
 
+        $ReletedProducts = [];
         $PageMeta = $Product ;
         parent::printSeoMeta($PageMeta);
 

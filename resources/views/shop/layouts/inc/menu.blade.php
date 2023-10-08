@@ -17,28 +17,15 @@
                             <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'MainCategory' ) setActive @endif" href="{{ route('Shop_MainCategory') }}"><i class="fas fa-sitemap d-sm-none"></i>{{__('web/def.Main_Categories')}} </a></li>
                             <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'Shop_Recently' ) setActive @endif" href="{{ route('Shop_Recently') }}"><i class="fas fa-history d-sm-none"></i>{{ __('web/menu.recently_arrived')}} </a></li>
                             <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'Shop_WeekOffers' ) setActive @endif" href="{{ route('Shop_WeekOffers') }}"><i class="fas fa-calendar-alt d-sm-none"></i>{{ __('web/menu.week_offer') }} </a></li>
-                            <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'Shop_BestDeals' ) setActive @endif" href="{{ route('Shop_BestDeals') }}"><i class="fas fa-cash-register d-sm-none"></i>{{ __('web/menu.client_offer') }} </a></li>
-                            @if(Auth::guard('customer')->check() == false)
-                                @if($agent->isMobile() == true and $agent->isTablet() == false)
-                                    <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'FaqList' ) setActive @endif" href="{{ route('Page_FaqList') }}"><i class="fas fa-question"></i> {{ __('web/menu.Faq') }}</a></li>
-                                @endif
-                                <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'ContactUs' ) setActive @endif" href="{{ route('Page_ContactUs') }}"><i class="fas fa-headset d-sm-none"></i> {{ __('web/menu.contatc_us')}}</a></li>
-                            @endif
-
-
+                            <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'ContactUs' ) setActive @endif" href="{{ route('Page_ContactUs') }}"><i class="fas fa-headset d-sm-none"></i> {{ __('web/menu.contatc_us')}}</a></li>
 
                             @if($agent->isMobile() == true and $agent->isTablet() == false)
-
-
-
-
                                 @if(Auth::guard('customer')->check() == false)
 
                                     <div class="mobileCart">
                                         <a href="{{route('Shop_CartView')}}">
                                             <i class="linearicons-cart"></i>
                                             <span class="">سلة المشتريات</span>
-
                                         </a>
                                     </div>
 

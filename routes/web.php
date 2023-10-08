@@ -42,11 +42,6 @@ Route::get(__('routes.Recently'),
 Route::get(__('routes.WeekOffers'),
     [ShopPageController::class, 'WeekOffers'])->name('Shop_WeekOffers');
 
-Route::get(__('routes.BestDeals'),
-    [ShopPageController::class, 'BestDeals'])->name('Shop_BestDeals');
-
-;
-
 Route::get('/CartView',
     [ShoppingCartController::class, 'CartView'])->name('Shop_CartView');
 

@@ -66,8 +66,8 @@
                             @endif
 
                             <li>{{__('web/def.lable_Category')}}
-                                @foreach($Product->product_with_category as $category )
-                                    <a href="{{ route('Page_WebCategoryView',$category->slug)}}"><span> {{$category->name}}</span></a>
+                                @foreach($Product->categories as $category )
+                                    <a href="{{ route('Shop_CategoryView',$category->slug)}}"><span> {{$category->name}}</span></a>
                                 @endforeach
                             </li>
                         </ul>
