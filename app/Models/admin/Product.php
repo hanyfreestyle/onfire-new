@@ -48,10 +48,25 @@ class Product extends Model implements TranslatableContract
         return $this->hasMany(ProductPhoto::class,'product_id','id');
     }
 
+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#|||||||||||||||||||||||||||||||||||||| #     CartPriceToAdd
+    public function CartPriceToAdd()
+    {
+        if(intval($this->price) > 0 and intval($this->sale_price) != 0
+            and intval($this->sale_price) <  intval($this->price) ){
+            return $this->sale_price ;
+        }else{
+            return $this->price ;
+        }
+    }
+
+
+
+
+
 
 
 /*
-
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #|||||||||||||||||||||||||||||||||||||| #  Web_Shop_Def_Query
@@ -137,18 +152,7 @@ class Product extends Model implements TranslatableContract
         }
     }
 
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #     CartPriceToAdd
 
-    public function CartPriceToAdd()
-    {
-        if(intval($this->price) > 0 and intval($this->sale_price) != 0
-            and intval($this->sale_price) <  intval($this->price) ){
-            return $this->sale_price ;
-        }else{
-            return $this->price ;
-        }
-    }
 */
 
 }

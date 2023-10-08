@@ -41,23 +41,12 @@ class WebMainController extends Controller
         $DefPhotoList = self::getDefPhotoList($stopCash);
         View::share('DefPhotoList', $DefPhotoList);
 
-
-
-//        $PagesList  = self::getPagesList();
-//        View::share('PagesList', $PagesList);
-
-
-
-
-
-
         $PageView = [
             'selMenu'=>  '',
             'container'=>  webContainer(0), # 'custom-container',
             'top_search_view'=>1, # 'custom-container',
             'top_search_view_cat'=> 0, # 'custom-container',
             'PageType'=> 'web',
-
         ];
         $this->PageView = $PageView;
         View::share('PageView', $PageView);
@@ -182,74 +171,28 @@ class WebMainController extends Controller
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #|||||||||||||||||||||||||||||||||||||| #     getMenuCategory
-    static function getMenuCategory($stopCash=0){
-
-        if($stopCash){
-            $MenuCategory = Category::WebSite_Def_Query()
-                ->RootCategory()
-                ->withCount('website_children')
-                ->with('website_children')
-                ->withCount('category_with_product_website')
-                ->with('category_with_product_website')
-                ->with('translation')
-                ->orderBy('postion_web','ASC')
-                ->get();
-
-        }else{
-            $MenuCategory = Cache::remember('WebsiteMenuCategory_Cash_'.app()->getLocale(),config('app.def_24h_cash'),
-                function (){
-                return    Category::WebSite_Def_Query()
-                    ->RootCategory()
-                    ->withCount('website_children')
-                    ->with('website_children')
-                    ->withCount('category_with_product_website')
-                    ->with('category_with_product_website')
-                    ->with('translation')
-                    ->orderBy('postion_web','ASC')
-                    ->get();
-            });
-        }
-
-
-
-        return $MenuCategory ;
-    }
-
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #     getMenuCategory
     static function getShopMenuCategory($stopCash=0){
 
-//        if($stopCash){
-//            $MenuCategory = Category::Web_Shop_Def_Query()->RootCategory()
-//                ->withCount('web_shop_children')
-//                ->with('web_shop_children')
-//                ->with('recursive_product_shop')
-//                ->orderBy('postion_shop','ASC')
-//                ->get();
-//        }else{
-//            $MenuCategory = Cache::remember('ShopMenuCategory_Cash_'.app()->getLocale(),config('app.def_24h_cash'),
-//                function (){ return   Category::def()->root()
-//                    ->withCount('children')
-//                    ->with('children')
-//                    ->with('recursive_product_shop')
-//                    ->orderBy('postion','ASC')
-//                    ->get();
-//                });
-//        }
-
-        $MenuCategory = Category::def()->root()
-            ->withCount('children')
-            ->with('children')
-            ->with('recursive_product_shop')
-            ->orderBy('postion','ASC')
-            ->get();
-
-//        dd($MenuCategory);
+        if($stopCash){
+            $MenuCategory = Category::def()->root()
+                ->withCount('children')
+                ->with('children')
+                ->with('recursive_product_shop')
+                ->orderBy('postion','ASC')
+                ->get();
+        }else{
+            $MenuCategory = Cache::remember('ShopMenuCategory_Cash_'.app()->getLocale(),config('app.def_24h_cash'),
+                function (){ return   Category::def()->root()
+                    ->withCount('children')
+                    ->with('children')
+                    ->with('recursive_product_shop')
+                    ->orderBy('postion','ASC')
+                    ->get();
+                });
+        }
 
         return $MenuCategory ;
     }
-
-
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #|||||||||||||||||||||||||||||||||||||| #     getMenuCategory

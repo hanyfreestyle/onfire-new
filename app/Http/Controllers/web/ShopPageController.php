@@ -22,11 +22,8 @@ class ShopPageController extends WebMainController
         $ShopMenuCategory = self::getShopMenuCategory($stopCash);
         View::share('ShopMenuCategory', $ShopMenuCategory);
 
-        $CartList = Product::with('translation')->inRandomOrder()->limit(2)->get();
-        View::share('CartList', $CartList);
-
-        $RecentProduct = Product::with('translation')->inRandomOrder()->limit(4)->get();
-        View::share('RecentProduct', $RecentProduct);
+//        $RecentProduct = Product::with('translation')->inRandomOrder()->limit(4)->get();
+//        View::share('RecentProduct', $RecentProduct);
 
         $SinglePageView = [
             'SelMenu' => '',
@@ -34,7 +31,6 @@ class ShopPageController extends WebMainController
             'slug' => null,
             'banner_id' => null,
             'breadcrumb' => 'home',
-
         ];
 
         $this->SinglePageView = $SinglePageView ;
@@ -57,16 +53,14 @@ class ShopPageController extends WebMainController
         $SinglePageView['banner_list'] = $PageMeta->PageBanner ;
 
 
-        $MainCategoryPro  = Category::where('parent_id',null)
+        $MainCategoryPro  = Category::def()->root()
             ->with('recursive_product_shop')
             ->limit(4)
             ->get();
 
-
         if(isset($_GET['mobile'])){
             Session::put('mobileview',$_GET['mobile']);
         }
-
 
         return view('shop.index',compact('SinglePageView','MainCategoryPro'));
     }
