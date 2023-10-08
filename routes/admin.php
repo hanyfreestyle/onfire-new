@@ -1,13 +1,12 @@
 <?php
 use App\Helpers\AdminHelper;
-use App\Http\Controllers\admin\CategoryController;
+
 use App\Http\Controllers\admin\PageController;
-use App\Http\Controllers\admin\ProductController;
-use App\Http\Controllers\admin\ProductTableController;
 use App\Http\Controllers\admin\ShopCategoryController;
 use App\Http\Controllers\admin\ShopProductController;
 use App\Http\Controllers\AdminMainController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/',[HomeController::class,'Dashboard'])->name('admin.Dashboard');
 
@@ -25,10 +24,26 @@ Route::get('/Category/emptyIcon/{id}', [ShopCategoryController::class,'emptyIcon
 Route::get('/Category/Config',[ShopCategoryController::class,'config'])->name('Shop.shopCategoryConfig.Config');
 Route::get('/Category/CatSort/{id}',[ShopCategoryController::class,'CategorySort'])->name('Shop.shopCategory.CatSort');
 Route::post('/Category/SaveSort',[ShopCategoryController::class,'CategorySaveSort'])->name('Shop.shopCategory.CategorySaveSort');
-
 Route::get('/Category/SoftDelete/',[ShopCategoryController::class,'SoftDeletes'])->name('Shop.shopCategory.SoftDelete');
 Route::get('/Category/restore/{id}',[ShopCategoryController::class,'restored'])->name('Shop.shopCategory.restore');
 Route::get('/Category/force/{id}',[ShopCategoryController::class,'ForceDeletes'])->name('Shop.shopCategory.force');
+
+
+
+Route::get('/Product',[ShopProductController::class,'index'])->name('Shop.ShopProduct.index');
+Route::get('/Product/Category/{Categoryid}',[ShopProductController::class,'ListCategory'])->name('Shop.ShopProduct.ListCategory');
+Route::get('/Product/create',[ShopProductController::class,'create'])->name('Shop.ShopProduct.create');
+Route::get('/Product/edit/{id}',[ShopProductController::class,'edit'])->name('Shop.ShopProduct.edit');
+Route::post('/Product/update/{id}',[ShopProductController::class,'storeUpdate'])->name('Shop.ShopProduct.update');
+Route::get('/Product/photos/{id}',[ShopProductController::class,'ListMorePhoto'])->name('Shop.ShopProduct.More_Photos');
+Route::get('/Product/destroy/{id}',[ShopProductController::class,'destroy'])->name('Shop.ShopProduct.destroy');
+Route::get('/Product/emptyPhoto/{id}', [ShopProductController::class,'emptyPhoto'])->name('Shop.ShopProduct.emptyPhoto');
+Route::post('/Product/AddMore',[ShopProductController::class,'AddMorePhotos'])->name('Shop.ShopProduct.More_PhotosAdd');
+Route::post('/Product/saveSort', [ShopProductController::class,'sortPhotoSave'])->name('Shop.ShopProduct.sortPhotoSave');
+Route::get('/Product/PhotoDel/{id}',[ShopProductController::class,'More_PhotosDestroy'])->name('Shop.ShopProduct.More_PhotosDestroy');
+Route::get('/Product/SoftDelete/',[ShopProductController::class,'SoftDeletes'])->name('Shop.ShopProduct.SoftDelete');
+Route::get('/Product/restore/{id}',[ShopProductController::class,'restored'])->name('Shop.ShopProduct.restore');
+Route::get('/Product/force/{id}',[ShopProductController::class,'ForceDeletes'])->name('Shop.ShopProduct.force');
 
 
 
@@ -45,20 +60,5 @@ Route::get('/Pages/emptyPhoto/{id}', [PageController::class,'emptyPhoto'])->name
 Route::get('/Pages/Sort',[PageController::class,'Sort'])->name('Pages.pageList.Sort');
 Route::post('/Pages/SaveSort', [PageController::class,'SaveSort'])->name('Pages.pageList.SaveSort');
 
-
-
-Route::get('/ShopProduct',[ShopProductController::class,'index'])->name('Shop.ShopProduct.index');
-Route::get('/ShopProduct/AddToShop',[ShopProductController::class,'AddProToShop'])->name('Shop.ShopProduct.AddProToShop');
-Route::get('/ShopProduct/ListCategory/{Categoryid}',[ShopProductController::class,'ListCategory'])->name('Shop.ShopProduct.ListCategory');
-Route::get('/ShopProduct/create',[ShopProductController::class,'create'])->name('Shop.ShopProduct.create');
-Route::get('/ShopProduct/edit/{id}',[ShopProductController::class,'edit'])->name('Shop.ShopProduct.edit');
-Route::get('/ShopProduct/destroy/{id}',[ShopProductController::class,'destroy'])->name('Shop.ShopProduct.destroy');
-Route::post('/ShopProduct/update/{id}',[ShopProductController::class,'storeUpdate'])->name('Shop.ShopProduct.update');
-Route::get('/ShopProduct/emptyPhoto/{id}', [ShopProductController::class,'emptyPhoto'])->name('Shop.ShopProduct.emptyPhoto');
-
-Route::get('/ShopProduct/photos/{id}',[ShopProductController::class,'ListMorePhoto'])->name('Shop.ShopProduct.More_Photos');
-Route::post('/ShopProduct/saveSort', [ShopProductController::class,'sortPhotoSave'])->name('Shop.ShopProduct.sortPhotoSave');
-Route::post('/ShopProduct/AddMore',[ShopProductController::class,'AddMorePhotos'])->name('Shop.ShopProduct.More_PhotosAdd');
-Route::get('/ShopProduct/PhotoDel/{id}',[ShopProductController::class,'More_PhotosDestroy'])->name('Shop.ShopProduct.More_PhotosDestroy');
 
 

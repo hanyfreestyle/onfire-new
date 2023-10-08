@@ -2,17 +2,17 @@
 
 namespace Database\Seeders\admin;
 
-use App\Models\admin\ProductCategory;
+use App\Models\admin\CategoryProduct;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use DB;
+use Illuminate\Support\Facades\DB;
 
-class ProductCategorySeeder extends Seeder
+class CategoryProductSeeder extends Seeder
 {
     public function run(): void
     {
-        ProductCategory::unguard();
-        $tablePath = public_path('db/product_category.sql');
+        CategoryProduct::unguard();
+        $tablePath = public_path('db/category_product.sql');
         DB::unprepared(file_get_contents($tablePath));
     }
 }

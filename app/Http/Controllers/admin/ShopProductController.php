@@ -11,8 +11,9 @@ use App\Models\admin\Category;
 use App\Models\admin\Product;
 use App\Models\admin\ProductPhoto;
 use App\Models\admin\ProductTranslation;
-use Cache;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 
 class ShopProductController extends AdminMainController
@@ -57,7 +58,7 @@ class ShopProductController extends AdminMainController
             'TitlePage' =>  $this->PageTitle ,
             'selMenu'=> $this->selMenu,
             'prefix_Role'=> $this->PrefixRole ,
-            'restore'=> 0 ,
+            'restore'=> 1 ,
         ];
         $pageData = AdminHelper::returnPageDate($this->controllerName,$sendArr);
         $this->pageData = $pageData ;
@@ -77,52 +78,26 @@ class ShopProductController extends AdminMainController
 #|||||||||||||||||||||||||||||||||||||| #     index
     public function index()
     {
-
-
-//        $Products = Product::defquery()->where('pro_shop',true)->get();
-//        foreach ($Products as $Product){
-//            $Product->qty =  rand(0,50);
-//            $Product->save();
-//        }
-
-
-//        $Products = Product::defquery()->where('pro_shop',true)->get();
-//        foreach ($Products as $Product){
-//            $Product->ref_code =  rand(10000000,99999999);
-//            $Product->save();
-//        }
-
-
-
-
-        $pageData = $this->pageData;
+       $pageData = $this->pageData;
         $pageData['ViewType'] = "List";
         $pageData['SubView'] = false;
-        $Products = self::getSelectQuery(Product::defquery()
-            ->where('pro_shop',true)
-        );
-
-
+        $pageData['Trashed'] = Product::onlyTrashed()->count();
+        $Products = self::getSelectQuery(Product::def());
         return view('admin.shop.product_index',compact('pageData','Products'));
     }
+
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #     AddProToShop
-    public function AddProToShop()
+#|||||||||||||||||||||||||||||||||||||| #     SoftDeletes
+    public function SoftDeletes()
     {
-        $pageData = $this->pageData;
-        $pageData['ViewType'] = "List";
+        $pageData = $this->pageData ;
+        $pageData['ViewType'] = "deleteList";
         $pageData['SubView'] = false;
-        $Products = self::getSelectQuery(Product::defquery()
-            ->where('pro_shop',false)
-        );
+
+        $Products = self::getSelectQuery(Product::onlyTrashed());
         return view('admin.shop.product_index',compact('pageData','Products'));
     }
-
-
-
-
-
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #|||||||||||||||||||||||||||||||||||||| #     SubCategory
@@ -132,16 +107,11 @@ class ShopProductController extends AdminMainController
         $pageData['ViewType'] = "List";
         $pageData['SubView'] = true;
         $Category = Category::findOrFail($id);
-
-
-        $Products = Product::defquery()->whereHas('ProductWithCategory', function ($query) use ($id) {
+        $Products = Product::def()->whereHas('categories', function ($query) use ($id) {
             $query->where('category_id', $id);
         })->paginate(10);
-
-
         return view('admin.shop.product_index',compact('pageData','Products'));
     }
-
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #|||||||||||||||||||||||||||||||||||||| #     create
@@ -149,7 +119,6 @@ class ShopProductController extends AdminMainController
     {
         $pageData = $this->pageData;
         $pageData['ViewType'] = "Add";
-        //$Categories = Category::tree()->with('translation')->get()->toTree();
         $Categories = Category::all();
         $Product = Product::findOrNew(0);
         $selCat = [];
@@ -162,10 +131,9 @@ class ShopProductController extends AdminMainController
     {
         $pageData = $this->pageData;
         $pageData['ViewType'] = "Edit";
-
         $Categories = Category::all();
-        $Product = Product::where('id',$id)->with('ProductWithCategory')->firstOrFail();
-        $selCat = $Product->ProductWithCategory()->pluck('category_id')->toArray();
+        $Product = Product::where('id',$id)->with('categories')->firstOrFail();
+        $selCat = $Product->categories()->pluck('category_id')->toArray();
         return view('admin.shop.product_form',compact('Product','pageData','Categories','selCat'));
     }
 
@@ -174,33 +142,21 @@ class ShopProductController extends AdminMainController
     public function storeUpdate(ShopProductRequest $request, $id=0)
     {
 
-
         $categories = $request->input('categories');
-
         $saveData =  Product::findOrNew($id);
 
 
         $saveData->is_active = intval((bool) $request->input( 'is_active'));
         $saveData->is_archived = intval((bool) $request->input( 'is_archived'));
 
-        $saveData->pro_shop = $request->input('pro_shop');
-        $saveData->pro_web = $request->input('pro_web');
-
-
         $saveData->price = $request->input('price');
         $saveData->sale_price = $request->input('sale_price');
         $saveData->qty_left = $request->input('qty_left');
         $saveData->qty_max = $request->input('qty_max');
         $saveData->unit = $request->input('unit');
-
-
-
-
-
-
-
         $saveData->save();
-        $saveData->ProductWithCategory()->sync($categories);
+
+        $saveData->categories()->sync($categories);
 
         $saveImgData = new PuzzleUploadProcess();
         $saveImgData->setCountOfUpload('2');
@@ -224,32 +180,21 @@ class ShopProductController extends AdminMainController
 
 
         if($id == '0'){
-
             if($request->input('AddNewSet') !== null){
                 return redirect()->back();
             }else{
                 return redirect(route($this->PrefixRoute.'.index'))->with('Add.Done',"");
             }
-
         }else{
-
              return redirect()->back();
             // return redirect(route($this->PrefixRoute.'.index'))->with('Edit.Done',"");
         }
     }
-
-
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #|||||||||||||||||||||||||||||||||||||| #     destroy
     public function destroy($id)
     {
-        $deleteRow = Product::where('id',$id)->with('more_photos')->firstOrFail();
-        if(count($deleteRow->more_photos) > 0){
-            foreach ($deleteRow->more_photos as $del_photo ){
-                AdminHelper::DeleteAllPhotos($del_photo);
-            }
-        }
-        $deleteRow = AdminHelper::DeleteAllPhotos($deleteRow);
+        $deleteRow = Product::where('id',$id)->firstOrFail();
         $deleteRow->delete();
         self::ClearCash();
         return back()->with('confirmDelete',"");
@@ -323,7 +268,29 @@ class ShopProductController extends AdminMainController
         return back()->with('confirmDelete',"");
     }
 
+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#|||||||||||||||||||||||||||||||||||||| #     Restore
+    public function restored($id)
+    {
+        Product::onlyTrashed()->where('id',$id)->restore();
+        self::ClearCash();
+        return back()->with('restore',"");
+    }
 
-
+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#|||||||||||||||||||||||||||||||||||||| #     ForceDeletes
+    public function ForceDeletes($id)
+    {
+        $deleteRow = Product::onlyTrashed()->where('id',$id)->with('more_photos')->firstOrFail();
+        if(count($deleteRow->more_photos) > 0){
+            foreach ($deleteRow->more_photos as $del_photo ){
+                AdminHelper::DeleteAllPhotos($del_photo);
+            }
+        }
+        $deleteRow = AdminHelper::DeleteAllPhotos($deleteRow);
+        $deleteRow->forceDelete();
+        self::ClearCash();
+        return back()->with('confirmDelete',"");
+    }
 
 }

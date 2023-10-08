@@ -7,14 +7,6 @@
     <x-breadcrumb-def :pageData="$pageData"/>
 
     <x-html-section>
-        <div class="row mb-3">
-            <div class="col-12 text-left">
-                <x-action-button url="{{route('Shop.ShopProduct.AddProToShop')}}"  bg="p"  print-lable="{{ __('admin/shop.pro_addshop') }}"  icon="fas fa-plus-square"  />
-            </div>
-        </div>
-    </x-html-section>
-
-    <x-html-section>
         <x-ui-card  :page-data="$pageData" >
             <x-mass.confirm-massage/>
 
@@ -26,24 +18,28 @@
                             <th class="TD_20">#</th>
                             <th class="TD_20"></th>
                             <th class="TD_200">{{__('admin/def.form_name_ar')}}</th>
-                            <th class="TD_250">{{__('admin/def.Category')}}</th>
 
-
-                            <th class="TD_50">{{ __('admin/shop.pro_price') }}</th>
-                            <th class="TD_100">{{ __('admin/shop.pro_discount_price') }}</th>
-                            <th class="TD_50">{{ __('admin/shop.pro_qty') }}</th>
-                            <th class="TD_100">{{ __('admin/shop.pro_qty_max') }}</th>
-
-
-                            <th class="tbutaction TD_50"></th>
-                            @can($PrefixRole.'_edit')
-
+                            @if($pageData['ViewType'] == 'deleteList')
+                                <th>{{ __('admin/page.del_date') }}</th>
+                                <th></th>
+                                <th></th>
+                            @else
+                                <th class="TD_250">{{__('admin/def.Category')}}</th>
+                                <th class="TD_50">{{ __('admin/shop.pro_price') }}</th>
+                                <th class="TD_100">{{ __('admin/shop.pro_discount_price') }}</th>
+                                <th class="TD_50">{{ __('admin/shop.pro_qty') }}</th>
+                                <th class="TD_100">{{ __('admin/shop.pro_qty_max') }}</th>
                                 <th class="tbutaction TD_50"></th>
-                                <th class="tbutaction TD_50"></th>
-                            @endcan
-                            @can($PrefixRole.'_delete')
-                                <th class="tbutaction TD_50"></th>
-                            @endcan
+                                @can($PrefixRole.'_edit')
+
+                                    <th class="tbutaction TD_50"></th>
+                                    <th class="tbutaction TD_50"></th>
+                                @endcan
+                                @can($PrefixRole.'_delete')
+                                    <th class="tbutaction TD_50"></th>
+                                @endcan
+                            @endif
+
                         </tr>
                         </thead>
                         <tbody>
@@ -54,31 +50,32 @@
                                 <td class="tc">{!!  \App\Helpers\AdminHelper::printTableImage($Product,'photo_thum_1') !!} </td>
                                 <td>{{ $Product->translate('ar')->name}}</td>
 
-                                <td>
-                                    @foreach($Product->ProductWithCategory as $Category )
-                                        <a href="{{route($PrefixRoute.'.ListCategory',$Category->id)}}">
-                                            <span class="cat_table_name">{{$Category->name}}</span>
-                                        </a>
-                                    @endforeach
-                                </td>
+                                @if($pageData['ViewType'] == 'deleteList')
+                                    <td>{{$Product->deleted_at}}</td>
+                                    <td class="tc"><x-action-button url="{{route($PrefixRoute.'.restore',$Product->id)}}" type="restor" /></td>
+                                    <td class="tc"><x-action-button url="#" id="{{route($PrefixRoute.'.force',$Product->id)}}" type="deleteSweet"/></td>
+                                @else
+                                    <td>
+                                        @foreach($Product->categories as $Category )
+                                            <a href="{{route($PrefixRoute.'.ListCategory',$Category->id)}}">
+                                                <span class="cat_table_name">{{$Category->name}}</span>
+                                            </a>
+                                        @endforeach
+                                    </td>
+                                    <td class="tc">{{ $Product->price}}</td>
+                                    <td class="tc">{{ $Product->sale_price}}</td>
+                                    <td class="tc">{{$Product->qty_left}}</td>
+                                    <td class="tc">{{$Product->qty_max}}</td>
+                                    <td class="tc" >{!! is_active($Product->is_active) !!}</td>
+                                    @can($PrefixRole.'_edit')
+                                        <td class="tc"><x-action-button url="{{route($PrefixRoute.'.More_Photos',$Product->id)}}"  count="{{$Product->more_photos_count}}" type="morePhoto" :tip="true" /></td>
+                                        <td class="tc"><x-action-button url="{{route($PrefixRoute.'.edit',$Product->id)}}" type="edit" :tip="true" /></td>
+                                    @endcan
+                                    @can($PrefixRole.'_delete')
+                                        <td class=""><x-action-button url="#" id="{{route($PrefixRoute.'.destroy',$Product->id)}}" type="deleteSweet" :tip="true" /></td>
+                                    @endcan
+                                @endif
 
-
-
-                                <td class="tc">{{ $Product->price}}</td>
-                                <td class="tc">{{ $Product->sale_price}}</td>
-                                <td class="tc">{{$Product->qty_left}}</td>
-                                <td class="tc">{{$Product->qty_max}}</td>
-
-                                <td class="tc" >{!! is_active($Product->is_active) !!}</td>
-                                @can($PrefixRole.'_edit')
-
-                                    <td class="tc"><x-action-button url="{{route($PrefixRoute.'.More_Photos',$Product->id)}}"  count="{{$Product->more_photos_count}}" type="morePhoto" :tip="true" /></td>
-                                    <td class="tc"><x-action-button url="{{route($PrefixRoute.'.edit',$Product->id)}}" type="edit" :tip="true" /></td>
-                                @endcan
-
-                                @can($PrefixRole.'_delete')
-                                    <td class=""><x-action-button url="#" id="{{route($PrefixRoute.'.destroy',$Product->id)}}" type="deleteSweet" :tip="true" /></td>
-                                @endcan
                             </tr>
                         @endforeach
                         </tbody>

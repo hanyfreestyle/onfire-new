@@ -8,7 +8,7 @@ use Database\Seeders\admin\CategorySeeder;
 use Database\Seeders\admin\CategoryTranslationSeeder;
 use Database\Seeders\admin\PageSeeder;
 use Database\Seeders\admin\PageTranslationSeeder;
-use Database\Seeders\admin\ProductCategorySeeder;
+use Database\Seeders\admin\CategoryProductSeeder;
 use Database\Seeders\admin\ProductPhotoSeeder;
 use Database\Seeders\admin\ProductSeeder;
 use Database\Seeders\admin\ProductTranslationSeeder;
@@ -55,10 +55,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call(CategorySeeder::class);
         $this->call(CategoryTranslationSeeder::class);
-//        $this->call(ProductSeeder::class);
-//        $this->call(ProductTranslationSeeder::class);
-//        $this->call(ProductPhotoSeeder::class);
-//        $this->call(ProductCategorySeeder::class);
+        $this->call(ProductSeeder::class);
+        $this->call(ProductTranslationSeeder::class);
+        $this->call(ProductPhotoSeeder::class);
+        $this->call(CategoryProductSeeder::class);
 
 
         $this->call(PageSeeder::class);

@@ -33,25 +33,12 @@ class ShopProductRequest extends FormRequest
 
         $rules =[
             'categories'  => 'required|array|min:1',
-            'pro_shop'=> "required",
-            'pro_web'=> "required",
-            'unit'=> "required",
-
+            #'unit'=> "required",
             'price'=> "required|numeric",
             'sale_price'=> "nullable|numeric|lt:price",
-
-            'qty_left'=> "required|integer",
+            'qty_left'=> "nullable|integer",
             'qty_max'=> "required|integer",
-
         ];
-
-
-
-
-
-
-
-
 
         foreach(config('app.shop_lang') as $key=>$lang){
             $rules[$key.".name"] =   'required';

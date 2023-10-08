@@ -8,7 +8,6 @@ use App\Http\Controllers\AdminMainController;
 use App\Http\Requests\admin\ShopCategoryRequest;
 use App\Models\admin\Category;
 use App\Models\admin\CategoryTranslation;
-use App\Models\admin\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;

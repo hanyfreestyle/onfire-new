@@ -36,23 +36,6 @@
                 </div>
 
                 <div class="row">
-
-                    @if($pageData['ViewType'] == 'Edit')
-                        <x-form-select-arr  label="{{__('admin/shop.pro_addshop')}}" name="pro_shop" colrow="col-lg-3"
-                                            sendvalue="{{old('pro_shop',$Product->pro_shop)}}" select-type="selActive"/>
-
-                        <x-form-select-arr  label="{{__('admin/shop.pro_addweb')}}" name="pro_web" colrow="col-lg-3"
-                                            sendvalue="{{old('pro_web',$Product->pro_web)}}" select-type="selActive"/>
-                    @else
-                        <input type="hidden" name="pro_shop" value="1">
-                        <input type="hidden" name="pro_web" value="0">
-                    @endif
-
-                </div>
-
-
-                <hr>
-                <div class="row">
                     <div class="col-lg-6">
                         <x-basic-name-with-slug :row-data="$Product" :page-data="$pageData" col="col-lg-12" />
                     </div>
