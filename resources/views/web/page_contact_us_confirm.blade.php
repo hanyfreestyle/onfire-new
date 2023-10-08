@@ -1,4 +1,4 @@
-@extends('web.layouts.app')
+@extends('shop.layouts.app')
 @section('breadcrumb')
     <x-website.breadcrumb >
         {{ Breadcrumbs::render($SinglePageView['breadcrumb']) }}

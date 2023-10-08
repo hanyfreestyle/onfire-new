@@ -14,7 +14,6 @@
                         <x-website.footer-col-row title="{{ __('web/footer.menu_main') }}" prefix="Three" >
                             <ul class="widget_links">
                                 <li><a class="" href="{{ route('Shop_HomePage') }}">{{__('web/menu.home')}} </a></li>
-                                <li><a class="" href="{{ route('Shop_FaqList') }}">{{ __('web/menu.Faq') }}</a></li>
                                 <li><a class="" href="{{ route('Page_ContactUs') }}">{{  __('web/menu.contatc_us')}}</a></li>
                             </ul>
                         </x-website.footer-col-row>
@@ -27,7 +26,7 @@
                                 @endforeach
                             </ul>
                             <p class="footer_about_more">
-                                <a href="{{route('Page_MainCategory')}}">{{__('web/def.View_All')}}</a>
+                                <a href="{{route('Shop_MainCategory')}}">{{__('web/def.View_All')}}</a>
                             </p>
                         </x-website.footer-col-row>
                     </div>
