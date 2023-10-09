@@ -6,6 +6,7 @@ use App\Http\Controllers\WebMainController;
 use App\Models\admin\Category;
 use App\Models\admin\FaqCategory;
 use App\Models\admin\Product;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Session;
 
@@ -142,8 +143,10 @@ class ShopPageController extends WebMainController
         $PageMeta = $Category ;
         parent::printSeoMeta($PageMeta);
 
+
+       /// dd(Route::current());
         $SinglePageView = $this->SinglePageView ;
-        $SinglePageView['SelMenu'] = 'MainCategory' ;
+        $SinglePageView['SelMenu'] = $Category->slug ;
         $SinglePageView['breadcrumb'] = "Shop_CategoryView" ;
         $trees = Category::find($Category->id)->ancestorsAndSelf()->orderBy('depth','asc')->get() ;
 

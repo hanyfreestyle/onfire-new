@@ -1812,8 +1812,7 @@ button:focus:not(:focus-visible) {
 	transition: none;
 }
 .navbar-toggler[aria-expanded="true"] span::before {
-    content: "\f129";
-    font-size: 16px;
+
 }
 .navbar-toggler[aria-expanded="true"] {
 	line-height: 32px;

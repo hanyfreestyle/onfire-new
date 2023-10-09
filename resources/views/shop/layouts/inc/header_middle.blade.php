@@ -27,7 +27,7 @@
                                     </div>
                                 </div>
                             @endif
-                            <input class="form-control" placeholder="{{__('web/header.Search_Product')}}" required="" type="text">
+                            <input class="form-control" placeholder="{{__('web/header.Search_Product')}}" type="text">
                             <button type="submit" class="search_btn"><i class="linearicons-magnifier"></i></button>
                         </div>
                     </form>

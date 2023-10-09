@@ -1,23 +1,31 @@
 
-<div class="bottom_header light_skin main_menu_uppercase bg_dark  @if($SinglePageView['banner_id']  and $SinglePageView['banner_count'] > 0) mb-4 @endif">
+<div class="bottom_header light_skin main_menu_uppercase bg_dark">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-6 col-3">
-                @include('shop.layouts.inc.categories-wrap')
-            </div>
-
-            <div class="col-lg-9 col-md-8 col-sm-6 col-9">
+            <div class="col-lg-12">
                 <nav class="navbar navbar-expand-lg">
                     <button class="navbar-toggler side_navbar_toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSidetoggle" aria-expanded="false">
-                        <span class="ion-android-menu"></span>
+                        <span class="linearicons-menu"></span>
+
                     </button>
                     <div class="collapse navbar-collapse mobile_side_menu" id="navbarSidetoggle">
                         <ul class="navbar-nav web_site_navbar_nav">
-                            <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'HomePage' ) setActive @endif" href="{{ route('Shop_HomePage') }}"> <i class="fas fa-home d-sm-none"></i> {{__('web/menu.home')}} </a></li>
-                            <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'MainCategory' ) setActive @endif" href="{{ route('Shop_MainCategory') }}"><i class="fas fa-sitemap d-sm-none"></i>{{__('web/def.Main_Categories')}} </a></li>
-                            <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'Shop_Recently' ) setActive @endif" href="{{ route('Shop_Recently') }}"><i class="fas fa-history d-sm-none"></i>{{ __('web/menu.recently_arrived')}} </a></li>
-                            <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'Shop_WeekOffers' ) setActive @endif" href="{{ route('Shop_WeekOffers') }}"><i class="fas fa-calendar-alt d-sm-none"></i>{{ __('web/menu.week_offer') }} </a></li>
-                            <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'ContactUs' ) setActive @endif" href="{{ route('Page_ContactUs') }}"><i class="fas fa-headset d-sm-none"></i> {{ __('web/menu.contatc_us')}}</a></li>
+                            <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'HomePage' ) setActive @endif" href="{{ route('Shop_HomePage') }}"> <i class="fas fa-home"></i> {{__('web/menu.home')}} </a></li>
+                            @foreach($ShopMenuCategory as $category)
+                                <li>
+                                    <a class="nav-link nav_item @if($SinglePageView['SelMenu'] == $category->slug ) setActive @endif" href="{{ route('Shop_CategoryView',$category->slug) }}">
+                                        <i class="fas fa-utensils"></i> {{$category->name}}
+                                    </a>
+                                </li>
+                                <li>
+
+                                </li>
+                            @endforeach
+
+
+
+
+                            <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'ContactUs' ) setActive @endif" href="{{ route('Page_ContactUs') }}"><i class="fas fa-headset"></i> {{ __('web/menu.contatc_us')}}</a></li>
 
                             @if($agent->isMobile() == true and $agent->isTablet() == false)
                                 @if(Auth::guard('customer')->check() == false)
@@ -35,22 +43,22 @@
                                     </div>
                                     <div class="menu_social_icons  text-center  ">
                                         @if($WebConfig->facebook)
-                                            <a href="{{$WebConfig->facebook}}" target="_blank" class="sc_facebook"><i class="ion-social-facebook"></i></a>
+                                            <a href="{{$WebConfig->facebook}}" target="_blank" class="sc_facebook"><i class="fab fa-facebook-f"></i></a>
                                         @endif
                                         @if($WebConfig->twitter)
-                                            <a href="{{$WebConfig->twitter}}"  target="_blank" class="sc_twitter"><i class="ion-social-twitter"></i></a>
+                                            <a href="{{$WebConfig->twitter}}"  target="_blank" class="sc_twitter"><i class="fab fa-twitter"></i></a>
                                         @endif
 
                                         @if($WebConfig->youtube)
-                                            <a href="{{$WebConfig->youtube}}"  target="_blank" class="sc_youtube"><i class="ion-social-youtube-outline"></i></a>
+                                            <a href="{{$WebConfig->youtube}}"  target="_blank" class="sc_youtube"><i class="fab fa-youtube"></i></a>
                                         @endif
 
                                         @if($WebConfig->instagram)
-                                            <a href="{{$WebConfig->instagram}}" target="_blank" class="sc_instagram"><i class="ion-social-instagram-outline"></i></a>
+                                            <a href="{{$WebConfig->instagram}}" target="_blank" class="sc_instagram"><i class="fab fa-instagram"></i></a>
                                         @endif
 
                                         @if($WebConfig->linkedin)
-                                            <a href="{{$WebConfig->linkedin}}" target="_blank" class="sc_linkedin"><i class="ion-social-linkedin"></i></a>
+                                            <a href="{{$WebConfig->linkedin}}" target="_blank" class="sc_linkedin"><i class="fab fa-linkedin-in"></i></a>
                                         @endif
 
 
