@@ -79,22 +79,22 @@
     @yield('content')
 </div>
 
-{{--@if(Session::get('mobileview') != 1)--}}
-{{--    @if($agent->isDesktop() or $agent->isTablet())--}}
-{{--            @include('shop.layouts.inc.footer')--}}
-{{--    @else--}}
-{{--        @if(Auth::guard('customer')->check() == false)--}}
-{{--            @include('shop.layouts.inc.footer')--}}
-{{--        @else--}}
-{{--            @include('shop.layouts.inc.footer_mobile')--}}
-{{--        @endif--}}
-{{--    @endif--}}
-{{--@endif--}}
+@if(Session::get('mobileview') != 1)
+    @if($agent->isDesktop() or $agent->isTablet())
+            @include('shop.layouts.inc.footer')
+    @else
+        @if(Auth::guard('customer')->check() == false)
+            @include('shop.layouts.inc.footer')
+        @else
+            @include('shop.layouts.inc.footer_mobile')
+        @endif
+    @endif
+@endif
 
 
-{{--@if(Session::get('mobileview') == 1)--}}
-{{--    @include('shop.layouts.inc.footer_mobile')--}}
-{{--@endif--}}
+@if(Session::get('mobileview') == 1)
+    @include('shop.layouts.inc.footer_mobile')
+@endif
 
 
 <script src="{{ defWebAssets('js/jquery-3.6.0.min.js') }}"></script>

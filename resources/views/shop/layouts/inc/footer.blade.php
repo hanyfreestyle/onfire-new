@@ -1,115 +1,203 @@
-<x-website.footer-news-letter type="shop"/>
-
-<footer class="bg_gray webSiteFooter">
-    <div class="footer_top small_pt pb_20 UpdateFoote_P">
-        <div class="container">
-            <div class="row accordion accordion_style1" id="accordion"  >
+{{--<x-website.footer-news-letter type="shop"/>--}}
 
 
-                @if($agent->isMobile() and $agent->isTablet() == false)
+<div class="footer-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="ft-widget-area">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <a class="footer_logo">
+                                <img src="{{getDefPhotoPath($DefPhotoList,'light-logo')}}" alt="" class="img img-responsive">
+                            </a>
+                        </div>
+                        <div class="col-lg-6 d-flex justify-content-end footer_icon">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
 
-
-
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <x-website.footer-col-row title="{{ __('web/footer.menu_main') }}" prefix="Three" >
-                            <ul class="widget_links">
-                                <li><a class="" href="{{ route('Shop_HomePage') }}">{{__('web/menu.home')}} </a></li>
-                                <li><a class="" href="{{ route('Page_ContactUs') }}">{{  __('web/menu.contatc_us')}}</a></li>
-                            </ul>
-                        </x-website.footer-col-row>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <x-website.footer-col-row title="{{__('web/footer.menu_Categories')}}" prefix="Four" >
-                            <ul class="widget_links">
-                                @foreach($ShopMenuCategory as $MainCategory)
-                                    <li><a href="{{route('Shop_CategoryView',$MainCategory->slug)}}">{{$MainCategory->name}}</a></li>
-                                @endforeach
-                            </ul>
-                            <p class="footer_about_more">
-                                <a href="{{route('Shop_MainCategory')}}">{{__('web/def.View_All')}}</a>
+
+
+                    <div class="row mt-lg-3">
+                        <div class="col-lg-12">
+                            <p class="footer_text">
+                                {{__('web/footer.about_text')}}
                             </p>
-                        </x-website.footer-col-row>
+
+                        </div>
                     </div>
-                @endif
 
 
-            </div>
-        </div>
-    </div>
+                    <div class="row">
 
-    <x-website.footer-icons/>
 
-    <div class="bottom_footer border-top-tran bottom_footer_mobile">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <p class="mb-lg-0 text-center">{!! GetCopyRight('2010',$WebConfig->name ) !!}</p>
-                </div>
-                <div class="col-lg-4 order-lg-first">
-                    <div class="widget mb-lg-0">
-                        <ul class="social_icons  social_icons_footer text-center text-lg-start">
-                            @if($WebConfig->facebook)
-                                <li><a href="{{$WebConfig->facebook}}" target="_blank" class="sc_facebook"><i class="ion-social-facebook"></i></a></li>
-                            @endif
-                            @if($WebConfig->twitter)
-                                <li><a href="{{$WebConfig->twitter}}"  target="_blank" class="sc_twitter"><i class="ion-social-twitter"></i></a></li>
-                            @endif
+                    </div>
 
-                            @if($WebConfig->youtube)
-                                <li><a href="{{$WebConfig->youtube}}"  target="_blank" class="sc_youtube"><i class="ion-social-youtube-outline"></i></a></li>
-                            @endif
+                    <div class="row">
+                        <div class="about-contact-info clearfix">
+                            <div class="address-info">
+                                <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                <div class="info-content info_address">
+                                    {!! nl2br(__('web/footer.address')) !!}
+                                </div>
+                            </div>
+                            <div class="phone-info">
+                                <div class="info-icon"><i class="fas fa-phone-volume"></i></div>
+                                <div class="info-content info_phone">
+                                    {!! nl2br(__('web/footer.phone')) !!}
+                                </div>
+                            </div>
+                            <div class="email-info">
+                                <div class="info-icon"><i class="fab fa-whatsapp"></i></div>
+                                <div class="info-content info_phone">
+                                    {!! nl2br(__('web/footer.whatsapp')) !!}
+                                </div>
+                            </div>
+                        </div>
 
-                            @if($WebConfig->instagram)
-                                <li><a href="{{$WebConfig->instagram}}" target="_blank" class="sc_instagram"><i class="ion-social-instagram-outline"></i></a></li>
-                            @endif
-
-                            @if($WebConfig->linkedin)
-                                <li><a href="{{$WebConfig->linkedin}}" target="_blank" class="sc_linkedin"><i class="ion-social-linkedin"></i></a></li>
-                            @endif
-                        </ul>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <ul class="footer_payment text-center text-lg-end">
-                        Powered By <a href="">Freestyle4u.com</a>
-                    </ul>
+            </div>
+
+
+
+            <div class="col-lg-4">
+                <div class="ft-fixed-area">
+                    <div class="reservation-box">
+                        <div class="reservation-wrap">
+                            <h3 class="res-title">{{__('web/footer.Open_Hour')}}</h3>
+                            <div class="res-date-time">
+                                <div class="res-date-time-item">
+
+
+                                    <div class="res-date">
+                                        <div class="res-date-item">
+                                            <div class="res-date-text"><p>Tuesday:</p></div>
+                                            <div class="res-date-dot"></div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="res-time">
+                                        <div class="res-time-item">
+                                            <p>7AM - 9PM</p>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="res-date-time-item">
+                                    <div class="res-date">
+                                        <div class="res-date-item">
+                                            <div class="res-date-text">
+                                                <p>Wednesday:</p>
+                                            </div>
+                                            <div class="res-date-dot"></div>
+                                        </div>
+                                    </div>
+                                    <div class="res-time">
+                                        <div class="res-time-item">
+                                            <p>7AM - 9PM</p>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="res-date-time-item">
+                                    <div class="res-date">
+                                        <div class="res-date-item">
+                                            <div class="res-date-text">
+                                                <p>Thursday:</p>
+                                            </div>
+                                            <div class="res-date-dot">.......................................</div>
+                                        </div>
+                                    </div>
+                                    <div class="res-time">
+                                        <div class="res-time-item">
+                                            <p>7AM - 9PM</p>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="res-date-time-item">
+                                    <div class="res-date">
+                                        <div class="res-date-item">
+                                            <div class="res-date-text">
+                                                <p>Friday:</p>
+                                            </div>
+                                            <div class="res-date-dot">.......................................</div>
+                                        </div>
+                                    </div>
+                                    <div class="res-time">
+                                        <div class="res-time-item">
+                                            <p>7AM - 9PM</p>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="res-date-time-item">
+                                    <div class="res-date">
+                                        <div class="res-date-item">
+                                            <div class="res-date-text">
+                                                <p>Saturday:</p>
+                                            </div>
+                                            <div class="res-date-dot">.......................................</div>
+                                        </div>
+                                    </div>
+                                    <div class="res-time">
+                                        <div class="res-time-item">
+                                            <p>7AM - 9PM</p>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="res-date-time-item">
+                                    <div class="res-date">
+                                        <div class="res-date-item">
+                                            <div class="res-date-text">
+                                                <p>Sunday:</p>
+                                            </div>
+                                            <div class="res-date-dot">.......................................</div>
+                                        </div>
+                                    </div>
+                                    <div class="res-time">
+                                        <div class="res-time-item">
+                                            <p>7AM - 9PM</p>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="res-date-time-item">
+                                    <div class="res-date">
+                                        <div class="res-date-item">
+                                            <div class="res-date-text">
+                                                <p>Monday:</p>
+                                            </div>
+                                            <div class="res-date-dot">.......................................</div>
+                                        </div>
+                                    </div>
+                                    <div class="res-time">
+                                        <div class="res-time-item">
+                                            <p>Close</p>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
+
         </div>
-    </div>
-</footer>
-
-<a href="#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a>
-
-<div class="etman_sticky_navbar fixed d-xl-none">
-    <div class="sticky-info">
-        <a href="{{ route('Shop_HomePage') }}" class="sticky_a @if($SinglePageView['SelMenu'] == 'HomePage' ) active_footer @endif">
-            <i class="fas fa-home"></i>
-            {{ __('web/menu.footer_home') }}
-        </a>
-    </div>
-    <div class="sticky-info">
-        <a href="{{ route('Shop_Recently') }}" class="sticky_a @if($SinglePageView['SelMenu'] == 'Shop_Recently' ) active_footer @endif">
-
-            <i class="fas fa-gift"></i>
-            {{ __('web/menu.footer_offer') }}
-        </a>
-    </div>
-
-    <div class="sticky-info">
-        @if(Auth::guard('customer')->check())
-            <a href="{{route('Customer_Profile')}}" class="sticky_a @if($SinglePageView['SelMenu'] == 'CustomerProfile' ) active_footer @endif">
-                <i class="fas fa-user"></i>{{__('web/menu.footer_account')}}</a>
-        @else
-            <a href="{{route('Customer_login')}}" class="sticky_a @if($SinglePageView['SelMenu'] == 'CustomerProfile' ) active_footer @endif">
-                <i class="fas fa-user-lock"></i>{{__('web/menu.footer_account')}}</a>
-        @endif
-    </div>
-    <div class="sticky-info">
-        <a href="{{ route('Shop_CartView') }}" class="sticky_a @if($SinglePageView['SelMenu'] == 'Shop_CartView' ) active_footer @endif ">
-            <i class="fas fa-shopping-cart"></i>
-            {{ __('web/menu.footer_cart') }}
-        </a>
     </div>
 </div>
+{{--<a href="#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a>--}}
+
+{{--@include('shop.layouts.inc.footer_mobile')--}}
+
 

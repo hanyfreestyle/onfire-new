@@ -4,11 +4,11 @@ namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\WebMainController;
 use App\Models\admin\Category;
-use App\Models\admin\FaqCategory;
 use App\Models\admin\Product;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
-use Session;
+
 
 class ShopPageController extends WebMainController
 {
