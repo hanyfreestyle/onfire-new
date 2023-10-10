@@ -3,6 +3,10 @@
 return
 [
 	'OurClient' => 'Our Client',
+	'app_config' => '',
+	'app_menu' => '',
+	'app_photos' => '',
+	'app_setting' => '',
 	'blog' => 'News',
 	'dashboard' => 'Home Pgae',
 	'faq' => 'FAQ',
@@ -32,8 +36,6 @@ return
 	'web_pages' => 'Manage Pages',
 	'web_product' => 'Product',
 	'web_product_menu' => 'Web Product',
-	'app_setting' => '',
-	'app_config' => '',
-	'app_photos' => '',
-	'app_menu' => '',
+	'app_cart' => '',
+	'app_profile' => '',
 ];

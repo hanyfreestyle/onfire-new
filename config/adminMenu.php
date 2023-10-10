@@ -25,7 +25,6 @@
                     'text'=> 'admin/menu.app_photos',
                     'icon'=>'fas fa-camera-retro'
                 ],
-
                 [
                     'sel_routs'=> 'ShopProduct',
                     'url'=> 'Shop.ShopProduct.index',
@@ -33,7 +32,20 @@
                     'text'=> 'admin/menu.app_menu',
                     'icon'=>'fas fa-list-ul'
                 ],
-
+                [
+                    'sel_routs'=> 'AppProfile',
+                    'url'=> 'App.AppProfile.form',
+                    'roleView'=>'AppSetting_config',
+                    'text'=> 'admin/menu.app_profile',
+                    'icon'=>'fas fa-user-tie'
+                ],
+                [
+                    'sel_routs'=> 'AppCart',
+                    'url'=> 'App.AppCart.form',
+                    'roleView'=>'AppSetting_config',
+                    'text'=> 'admin/menu.app_cart',
+                    'icon'=>'fas fa-shopping-cart'
+                ],
 
             ],
         ], #App Setting

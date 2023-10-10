@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use Database\Seeders\admin\app\AppMenuSeeder;
+use Database\Seeders\admin\app\AppMenuTranslationSeeder;
 use Database\Seeders\admin\app\AppSettingSeeder;
 use Database\Seeders\admin\CategorySeeder;
 use Database\Seeders\admin\CategoryTranslationSeeder;
@@ -76,6 +78,8 @@ class DatabaseSeeder extends Seeder
 
 
        $this->call(AppSettingSeeder::class);
+       $this->call(AppMenuSeeder::class);
+       $this->call(AppMenuTranslationSeeder::class);
 
 
     }
