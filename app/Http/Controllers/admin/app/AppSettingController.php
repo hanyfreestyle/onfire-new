@@ -30,7 +30,6 @@ class AppSettingController extends AdminMainController
         return view('admin.app.setting_form')->with(compact('pageData','setting'));
     }
 
-
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #|||||||||||||||||||||||||||||||||||||| #
     public function AppSettingUpdate(AppSettingRequest $request)
@@ -46,5 +45,36 @@ class AppSettingController extends AdminMainController
         $setting->update($request->all());
        return redirect()->back();
     }
+
+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#|||||||||||||||||||||||||||||||||||||| #     AppPhotos
+    public function AppPhotos()
+    {
+        $setting = AppSetting::findOrFail(1);
+        $pageData =[
+            'ViewType'=>"Page",
+            'TitlePage'=>__('admin/menu.setting_web'),
+        ];
+        return view('admin.app.photos_form')->with(compact('pageData','setting'));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

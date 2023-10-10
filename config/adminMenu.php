@@ -19,8 +19,8 @@
                     'icon'=>'fas fa-cogs'
                 ],
                 [
-                    'sel_routs'=> 'shopCategory',
-                    'url'=> 'Shop.shopCategory.index',
+                    'sel_routs'=> 'AppPhotos',
+                    'url'=> 'App.AppPhotos.form',
                     'roleView'=>'AppSetting_photo',
                     'text'=> 'admin/menu.app_photos',
                     'icon'=>'fas fa-camera-retro'
