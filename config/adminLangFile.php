@@ -16,6 +16,8 @@ return [
        '12'=> ['id'=> '12' , 'group'=>'admin' , 'sub_dir'=> null , 'file_name'=> 'order','name'=>'Orders' ],
        '13'=> ['id'=> '13' , 'group'=>'admin' , 'sub_dir'=> null , 'file_name'=> 'appConfig','name'=>'AppConfig' ],
        '14'=> ['id'=> '14' , 'group'=>'admin' , 'sub_dir'=> null , 'file_name'=> 'appMenu','name'=>'AppMenu' ],
+       '15'=> ['id'=> '15' , 'group'=>'admin' , 'sub_dir'=> null , 'file_name'=> 'openingHours','name'=>'Opening Hours' ],
+       '16'=> ['id'=> '16' , 'group'=>'admin' , 'sub_dir'=> null , 'file_name'=> 'branch','name'=>'Branches' ],
 
 
     ],

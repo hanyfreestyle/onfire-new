@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\app\AppSettingController;
+use App\Http\Controllers\admin\app\BranchController;
 use App\Http\Controllers\admin\app\OpeningHoursController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +28,12 @@ Route::post('/app/Menu/SaveSort',[AppSettingController::class,'SaveSort'])->name
 
 Route::get('/app/OpeningHours', [OpeningHoursController::class, 'OpeningHours'])->name('App.OpeningHours.form');
 Route::post('/app/OpeningHoursUpdate/{id}', [OpeningHoursController::class, 'OpeningHoursUpdate'])->name('App.OpeningHours.Update');
+
+
+Route::get('/app/Branch', [BranchController::class, 'BranchList'])->name('App.Branch.index');
+Route::get('/app/Branch/create',[BranchController::class,'create'])->name('App.Branch.create');
+Route::get('/app/Branch/edit/{id}',[BranchController::class,'edit'])->name('App.Branch.edit');
+Route::get('/app/Branch/destroy/{id}',[BranchController::class,'destroy'])->name('App.Branch.destroy');
+Route::post('/app/Branch/update/{id}',[BranchController::class,'storeUpdate'])->name('App.Branch.update');
+Route::get('/app/Branch/Sort',[BranchController::class,'Sort'])->name('App.Branch.Sort');
+Route::post('/app/Branch/SaveSort',[BranchController::class,'SaveSort'])->name('App.Branch.SaveSort');

@@ -51,8 +51,18 @@
                     'url'=> 'App.OpeningHours.form',
                     'roleView'=>'AppSetting_config',
                     'text'=> 'admin/menu.app_OpeningHours',
-                    'icon'=>'fas fa-shopping-cart'
+                    'icon'=>'fas fa-history'
                 ],
+
+                [
+                    'sel_routs'=> 'Branch',
+                    'url'=> 'App.Branch.index',
+                    'roleView'=>'AppSetting_config',
+                    'text'=> 'admin/menu.app_Branches',
+                    'icon'=>'fas fa-map-signs'
+                ],
+
+
 
             ],
         ], #App Setting
