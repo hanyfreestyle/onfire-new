@@ -2,6 +2,42 @@
 
  return [
     'menu' => [
+
+        [
+            'view'=>true,
+            'sel_routs'=>'App',
+            'type'=>'many',
+            'text'=> 'admin/menu.app_setting',
+            'icon'=>'fab fa-apple',
+            'roleView'=>'AppSetting_view',
+            'submenu'=>[
+                [
+                    'sel_routs'=> 'AppSetting',
+                    'url'=> 'App.AppSetting.form',
+                    'roleView'=>'AppSetting_config',
+                    'text'=> 'admin/menu.app_config',
+                    'icon'=>'fas fa-cogs'
+                ],
+                [
+                    'sel_routs'=> 'shopCategory',
+                    'url'=> 'Shop.shopCategory.index',
+                    'roleView'=>'AppSetting_photo',
+                    'text'=> 'admin/menu.app_photos',
+                    'icon'=>'fas fa-camera-retro'
+                ],
+
+                [
+                    'sel_routs'=> 'ShopProduct',
+                    'url'=> 'Shop.ShopProduct.index',
+                    'roleView'=>'AppSetting_menu',
+                    'text'=> 'admin/menu.app_menu',
+                    'icon'=>'fas fa-list-ul'
+                ],
+
+
+            ],
+        ], #App Setting
+
         [
             'view'=>true,
             'sel_routs'=>'ShopOrders',
@@ -114,6 +150,8 @@
 
             ],
         ], #Shop Product
+
+
 
 
         [

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use Database\Seeders\admin\app\AppSettingSeeder;
 use Database\Seeders\admin\CategorySeeder;
 use Database\Seeders\admin\CategoryTranslationSeeder;
 use Database\Seeders\admin\PageSeeder;
@@ -72,6 +73,9 @@ class DatabaseSeeder extends Seeder
         $this->call(ShoppingOrderSeeder::class);
         $this->call(ShoppingOrderProductSeeder::class);
         $this->call(ShoppingOrderLogSeeder::class);
+
+
+       $this->call(AppSettingSeeder::class);
 
 
     }

@@ -14,6 +14,8 @@ return [
        '10'=> ['id'=> '10' , 'group'=>'admin' , 'sub_dir'=> null , 'file_name'=> 'shop','name'=>'Shop' ],
        '11'=> ['id'=> '11' , 'group'=>'admin' , 'sub_dir'=> null , 'file_name'=> 'customer','name'=>'Customer' ],
        '12'=> ['id'=> '12' , 'group'=>'admin' , 'sub_dir'=> null , 'file_name'=> 'order','name'=>'Orders' ],
+       '13'=> ['id'=> '13' , 'group'=>'admin' , 'sub_dir'=> null , 'file_name'=> 'appConfig','name'=>'AppConfig' ],
+       '14'=> ['id'=> '14' , 'group'=>'admin' , 'sub_dir'=> null , 'file_name'=> 'appMenu','name'=>'AppMenu' ],
 
 
     ],

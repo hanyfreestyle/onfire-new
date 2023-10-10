@@ -73,10 +73,10 @@ class PermissionSeeder extends Seeder
             ['cat_id'=> '11', 'name' => 'product_edit_slug','name_ar'=>'Edit Slug','name_en'=>'Edit Slug'],
 
 
-            ['cat_id'=> '12', 'name' => 'OurClient_view','name_ar'=>'عرض','name_en'=>'View'],
-            ['cat_id'=> '12', 'name' => 'OurClient_add','name_ar'=>'اضافة','name_en'=>'Add'],
-            ['cat_id'=> '12', 'name' => 'OurClient_edit','name_ar'=>'تعديل','name_en'=>'Edit'],
-            ['cat_id'=> '12', 'name' => 'OurClient_delete','name_ar'=>'حذف','name_en'=>'Delete'],
+            ['cat_id'=> '12', 'name' => 'AppSetting_view','name_ar'=>'AppSetting_view','name_en'=>'View'],
+            ['cat_id'=> '12', 'name' => 'AppSetting_menu','name_ar'=>'AppSetting_menu','name_en'=>'Add'],
+            ['cat_id'=> '12', 'name' => 'AppSetting_config','name_ar'=>'AppSetting_config','name_en'=>'Edit'],
+            ['cat_id'=> '12', 'name' => 'AppSetting_photo','name_ar'=>'AppSetting_photo','name_en'=>'Delete'],
 
 
             ['cat_id'=> '13', 'name' => 'BlogPost_view','name_ar'=>'عرض','name_en'=>'View'],
