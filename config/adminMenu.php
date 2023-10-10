@@ -26,8 +26,8 @@
                     'icon'=>'fas fa-camera-retro'
                 ],
                 [
-                    'sel_routs'=> 'ShopProduct',
-                    'url'=> 'Shop.ShopProduct.index',
+                    'sel_routs'=> 'AppMenuList',
+                    'url'=> 'App.AppMenuList.index',
                     'roleView'=>'AppSetting_menu',
                     'text'=> 'admin/menu.app_menu',
                     'icon'=>'fas fa-list-ul'

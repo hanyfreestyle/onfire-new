@@ -8,7 +8,7 @@
     </x-html-section>
 
     <x-html-section>
-        <form class="mainForm" action="{{ route('App.AppProfileUpdate') }}" method="post">
+        <form class="mainForm" action="{{ $pageData['route'] }}" method="post">
             @csrf
             <input type="hidden" name="id" value="{{$menu->id}}">
             <div class="container-fluid">
