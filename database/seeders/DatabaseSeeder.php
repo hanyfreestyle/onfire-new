@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use Database\Seeders\admin\app\AppMenuSeeder;
 use Database\Seeders\admin\app\AppMenuTranslationSeeder;
 use Database\Seeders\admin\app\AppSettingSeeder;
+use Database\Seeders\admin\app\OpeningHoursSeeder;
 use Database\Seeders\admin\CategorySeeder;
 use Database\Seeders\admin\CategoryTranslationSeeder;
 use Database\Seeders\admin\PageSeeder;
@@ -80,6 +81,7 @@ class DatabaseSeeder extends Seeder
        $this->call(AppSettingSeeder::class);
        $this->call(AppMenuSeeder::class);
        $this->call(AppMenuTranslationSeeder::class);
+       $this->call(OpeningHoursSeeder::class);
 
 
     }

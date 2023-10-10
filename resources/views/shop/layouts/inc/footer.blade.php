@@ -71,120 +71,33 @@
                         <div class="reservation-wrap">
                             <h3 class="res-title">{{__('web/footer.Open_Hour')}}</h3>
                             <div class="res-date-time">
-                                <div class="res-date-time-item">
+
+                                @foreach($OpeningHours as $day)
+
+                                    <div class="res-date-time-item">
+                                        <div class="res-date">
+                                            <div class="res-date-item">
+                                                <div class="res-date-text"><p>{{$day->name_ar}}</p></div>
+                                                <div class="res-date-dot"></div>
+                                            </div>
+                                        </div>
 
 
-                                    <div class="res-date">
-                                        <div class="res-date-item">
-                                            <div class="res-date-text"><p>Tuesday:</p></div>
-                                            <div class="res-date-dot"></div>
+                                        <div class="res-time">
+                                            <div class="res-time-item">
+                                                <p>
+
+                                                    {{ \Illuminate\Support\Carbon::parse($day->open_from)->locale(app()->getLocale())->translatedFormat("h:i A") }} -
+                                                    {{ \Illuminate\Support\Carbon::parse($day->open_to)->locale(app()->getLocale())->translatedFormat("h:i A") }}
+
+                                                </p>
+                                            </div>
                                         </div>
+                                        <div class="clearfix"></div>
                                     </div>
+                                @endforeach
 
 
-                                    <div class="res-time">
-                                        <div class="res-time-item">
-                                            <p>7AM - 9PM</p>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="res-date-time-item">
-                                    <div class="res-date">
-                                        <div class="res-date-item">
-                                            <div class="res-date-text">
-                                                <p>Wednesday:</p>
-                                            </div>
-                                            <div class="res-date-dot"></div>
-                                        </div>
-                                    </div>
-                                    <div class="res-time">
-                                        <div class="res-time-item">
-                                            <p>7AM - 9PM</p>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="res-date-time-item">
-                                    <div class="res-date">
-                                        <div class="res-date-item">
-                                            <div class="res-date-text">
-                                                <p>Thursday:</p>
-                                            </div>
-                                            <div class="res-date-dot">.......................................</div>
-                                        </div>
-                                    </div>
-                                    <div class="res-time">
-                                        <div class="res-time-item">
-                                            <p>7AM - 9PM</p>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="res-date-time-item">
-                                    <div class="res-date">
-                                        <div class="res-date-item">
-                                            <div class="res-date-text">
-                                                <p>Friday:</p>
-                                            </div>
-                                            <div class="res-date-dot">.......................................</div>
-                                        </div>
-                                    </div>
-                                    <div class="res-time">
-                                        <div class="res-time-item">
-                                            <p>7AM - 9PM</p>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="res-date-time-item">
-                                    <div class="res-date">
-                                        <div class="res-date-item">
-                                            <div class="res-date-text">
-                                                <p>Saturday:</p>
-                                            </div>
-                                            <div class="res-date-dot">.......................................</div>
-                                        </div>
-                                    </div>
-                                    <div class="res-time">
-                                        <div class="res-time-item">
-                                            <p>7AM - 9PM</p>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="res-date-time-item">
-                                    <div class="res-date">
-                                        <div class="res-date-item">
-                                            <div class="res-date-text">
-                                                <p>Sunday:</p>
-                                            </div>
-                                            <div class="res-date-dot">.......................................</div>
-                                        </div>
-                                    </div>
-                                    <div class="res-time">
-                                        <div class="res-time-item">
-                                            <p>7AM - 9PM</p>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="res-date-time-item">
-                                    <div class="res-date">
-                                        <div class="res-date-item">
-                                            <div class="res-date-text">
-                                                <p>Monday:</p>
-                                            </div>
-                                            <div class="res-date-dot">.......................................</div>
-                                        </div>
-                                    </div>
-                                    <div class="res-time">
-                                        <div class="res-time-item">
-                                            <p>Close</p>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
                             </div>
                         </div>
                     </div>

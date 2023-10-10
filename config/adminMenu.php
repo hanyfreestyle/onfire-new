@@ -46,6 +46,13 @@
                     'text'=> 'admin/menu.app_cart',
                     'icon'=>'fas fa-shopping-cart'
                 ],
+                [
+                    'sel_routs'=> 'OpeningHours',
+                    'url'=> 'App.OpeningHours.form',
+                    'roleView'=>'AppSetting_config',
+                    'text'=> 'admin/menu.app_OpeningHours',
+                    'icon'=>'fas fa-shopping-cart'
+                ],
 
             ],
         ], #App Setting

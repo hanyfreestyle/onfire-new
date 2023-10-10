@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\WebMainController;
+use App\Models\admin\app\OpeningHours;
 use App\Models\admin\Category;
 use App\Models\admin\Product;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,10 @@ class ShopPageController extends WebMainController
         ];
 
         $this->SinglePageView = $SinglePageView ;
+
+        $OpeningHours = OpeningHours::query()->orderBy('postion')->get();
+        View::share('OpeningHours', $OpeningHours);
+
     }
 
 
@@ -132,6 +137,18 @@ class ShopPageController extends WebMainController
     {
         $slug = \AdminHelper::Url_Slug($slug);
 
+
+
+//        $products = CategoryProduct::with(['product' => function ($q) {
+//            $q->where('is_active', 1);
+//        }]);
+//
+//        if($id > 0){
+//            $products = $products->where('category_id', $id)->get();
+//        }else{
+//            $products = $products->get();
+//        }
+
         $Category  = Category::def()
             ->whereTranslation('slug', $slug)
             ->withCount('children')
@@ -142,7 +159,6 @@ class ShopPageController extends WebMainController
 
         $PageMeta = $Category ;
         parent::printSeoMeta($PageMeta);
-
 
        /// dd(Route::current());
         $SinglePageView = $this->SinglePageView ;

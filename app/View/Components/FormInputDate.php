@@ -16,6 +16,9 @@ class FormInputDate extends Component
     public $inputId;
     public $col;
     public $value;
+    public $type;
+    public $ico;
+
     public function __construct(
         $name = null,
         $label = null ,
@@ -23,6 +26,8 @@ class FormInputDate extends Component
         $inputId = null ,
         $col = 'col-lg-3' ,
         $value = null ,
+        $type = 'date' ,
+        $ico = 'date' ,
 
 
     )
@@ -54,8 +59,28 @@ class FormInputDate extends Component
         if( $value == null){
             $this->value = '' ;
         }else{
-            $this->value = Carbon::parse($value)->format("m/d/Y");
+            if( $type == 'date')
+            {
+                $this->value = Carbon::parse($value)->format("m/d/Y");
+            }elseif ($type == 'time'){
+               // $this->value = Carbon::parse($value)->format("H:m");
+
+                $this->value = $value ;
+
+
+
+            }
         }
+
+
+        if( $type == 'date'){
+            $this->ico = 'far fa-calendar-alt';
+            $this->type = 'DatePicker';
+        }elseif ($type == 'time') {
+            $this->ico = 'far fa-clock';
+            $this->type = 'TimePicker';
+        }
+
 
 
     }

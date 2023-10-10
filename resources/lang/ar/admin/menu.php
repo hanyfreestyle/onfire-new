@@ -3,9 +3,11 @@
 return
 [
 	'OurClient' => 'عملائنا',
+	'app_cart' => 'رابط السلة',
 	'app_config' => 'الاعدادات العامة',
 	'app_menu' => 'قائمة التطبيق',
 	'app_photos' => 'الصور والشعار',
+	'app_profile' => 'رابط الملف الشخصى',
 	'app_setting' => 'اعدادات التطبيق',
 	'blog' => 'الاخبار',
 	'dashboard' => 'الصفحة الرئيسية',
@@ -36,6 +38,6 @@ return
 	'web_pages' => 'ادارة الصفحات',
 	'web_product' => 'المنتجات',
 	'web_product_menu' => 'منتجات الموقع',
-	'app_cart' => 'رابط السلة',
-	'app_profile' => 'رابط الملف الشخصى',
+	'app_OpeningHours' => 'مواعيد العمل',
+	'app_Branches' => 'الفروع',
 ];

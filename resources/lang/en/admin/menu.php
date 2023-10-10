@@ -3,9 +3,11 @@
 return
 [
 	'OurClient' => 'Our Client',
+	'app_cart' => '',
 	'app_config' => '',
 	'app_menu' => '',
 	'app_photos' => '',
+	'app_profile' => '',
 	'app_setting' => '',
 	'blog' => 'News',
 	'dashboard' => 'Home Pgae',
@@ -36,6 +38,6 @@ return
 	'web_pages' => 'Manage Pages',
 	'web_product' => 'Product',
 	'web_product_menu' => 'Web Product',
-	'app_cart' => '',
-	'app_profile' => '',
+	'app_OpeningHours' => '',
+	'app_Branches' => '',
 ];

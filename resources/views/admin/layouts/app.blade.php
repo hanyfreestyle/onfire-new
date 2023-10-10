@@ -93,6 +93,21 @@
 <script>
     $(function () {
 
+
+
+        $('.TimePicker').daterangepicker({
+            timePicker : true,
+            singleDatePicker:true,
+            timePicker24Hour : false,
+            timePickerIncrement : 1,
+            timePickerSeconds : false,
+            locale : {
+                format : 'HH:mm'
+            }
+        }).on('show.daterangepicker', function(ev, picker) {
+            picker.container.find(".calendar-table").hide();
+        });
+
         $('.DatePicker').daterangepicker({
             singleDatePicker: true,
             autoApply: true,

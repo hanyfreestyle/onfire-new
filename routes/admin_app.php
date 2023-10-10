@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\app\AppSettingController;
+use App\Http\Controllers\admin\app\OpeningHoursController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -23,3 +24,6 @@ Route::post('/app/Menu/update/{id}',[AppSettingController::class,'storeUpdate'])
 Route::get('/app/Menu/Sort',[AppSettingController::class,'Sort'])->name('App.AppMenuList.Sort');
 Route::post('/app/Menu/SaveSort',[AppSettingController::class,'SaveSort'])->name('App.AppMenuList.SaveSort');
 
+
+Route::get('/app/OpeningHours', [OpeningHoursController::class, 'OpeningHours'])->name('App.OpeningHours.form');
+Route::post('/app/OpeningHoursUpdate/{id}', [OpeningHoursController::class, 'OpeningHoursUpdate'])->name('App.OpeningHours.Update');

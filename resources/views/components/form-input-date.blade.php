@@ -9,10 +9,10 @@
         <div class="input-group">
             <div class="input-group-prepend">
                       <span class="input-group-text">
-                        <i class="far fa-calendar-alt"></i>
+                        <i class="{{$ico}}"></i>
                       </span>
             </div>
-            <input type="text" id="{{$inputId}}" value="{{$value}}"  name="{{$name}}" class="form-control float-right DatePicker  @error($name) is-invalid @enderror" >
+            <input type="text" id="{{$inputId}}" value="{{$value}}"  name="{{$name}}" class="form-control float-right {{$type}}  @error($name) is-invalid @enderror" >
 
             @error($name)
             <span class="invalid-feedback" role="alert">
