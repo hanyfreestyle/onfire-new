@@ -11,4 +11,5 @@ return
 	'home' => 'Home',
 	'home_page' => 'Home',
 	'week_offer' => 'week_offer',
+	'recently_arrived' => '',
 ];

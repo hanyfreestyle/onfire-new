@@ -11,4 +11,5 @@ return
 	'home' => 'الرئيسية',
 	'home_page' => 'الصفحة الرئيسية',
 	'week_offer' => 'عروض الاسبوع',
+	'recently_arrived' => 'العروض',
 ];

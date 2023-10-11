@@ -44,7 +44,7 @@ class WebMainController extends Controller
 
         $OpeningHours = OpeningHours::query()->orderBy('postion')->get();
         View::share('OpeningHours', $OpeningHours);
-        
+
         $PageView = [
             'selMenu'=>  '',
             'container'=>  webContainer(0), # 'custom-container',
