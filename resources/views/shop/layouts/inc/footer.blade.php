@@ -1,18 +1,15 @@
-{{--<x-website.footer-news-letter type="shop"/>--}}
-
+<livewire:new-letter-shop/>
 
 <div class="footer-main">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
+        <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-7 col-md-12">
                 <div class="ft-widget-area">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <a class="footer_logo">
-                                <img src="{{getDefPhotoPath($DefPhotoList,'light-logo')}}" alt="" class="img img-responsive">
-                            </a>
+                    <div class="row ">
+                        <div class="col-lg-6 col-md-6 d-flex justify-content-center">
+                            <img class="res_footer_logo" src="{{getDefPhotoPath($DefPhotoList,'light-logo')}}" >
                         </div>
-                        <div class="col-lg-6 d-flex justify-content-end footer_icon">
+                        <div class="col-lg-6  col-md-6 d-flex  justify-content-center footer_icon">
                             <a href="#"><i class="fab fa-facebook-f"></i></a>
                             <a href="#"><i class="fab fa-twitter"></i></a>
                             <a href="#"><i class="fab fa-instagram"></i></a>
@@ -22,7 +19,7 @@
                     </div>
 
 
-                    <div class="row mt-lg-3">
+                    <div class="row">
                         <div class="col-lg-12">
                             <p class="footer_text">
                                 {{__('web/footer.about_text')}}
@@ -32,40 +29,36 @@
                     </div>
 
 
+
+
                     <div class="row">
 
-
-                    </div>
-
-                    <div class="row">
-                        <div class="about-contact-info clearfix">
-                            <div class="address-info">
+                        <div class="col-lg-7 col-sm-6 col-12 ">
+                            <div class="address-info d-flex ">
                                 <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
                                 <div class="info-content info_address">
                                     {!! nl2br(__('web/footer.address')) !!}
                                 </div>
                             </div>
-                            <div class="phone-info">
-                                <div class="info-icon"><i class="fas fa-phone-volume"></i></div>
+                        </div>
+                        <div class="col-lg-5 col-sm-6 col-12 " >
+                            <div class="address-info d-flex ">
+                                <div class="info-icon"><i class="linearicons-phone-wave"></i></div>
                                 <div class="info-content info_phone">
                                     {!! nl2br(__('web/footer.phone')) !!}
                                 </div>
-                            </div>
-                            <div class="email-info">
-                                <div class="info-icon"><i class="fab fa-whatsapp"></i></div>
-                                <div class="info-content info_phone">
-                                    {!! nl2br(__('web/footer.whatsapp')) !!}
-                                </div>
+
                             </div>
                         </div>
+
+
+
+
 
                     </div>
                 </div>
             </div>
-
-
-
-            <div class="col-lg-4">
+            <div class="col-xl-4 col-lg-5 col-md-6 d-md-none d-lg-block">
                 <div class="ft-fixed-area">
                     <div class="reservation-box">
                         <div class="reservation-wrap">
@@ -74,11 +67,10 @@
 
                                 @foreach($OpeningHours as $day)
 
-                                    <div class="res-date-time-item">
+                                    <div class="date-time-item">
                                         <div class="res-date">
                                             <div class="res-date-item">
                                                 <div class="res-date-text"><p>{{$day->name_ar}}</p></div>
-                                                <div class="res-date-dot"></div>
                                             </div>
                                         </div>
 
@@ -93,7 +85,7 @@
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="clearfix"></div>
+
                                     </div>
                                 @endforeach
 
@@ -104,13 +96,11 @@
                 </div>
             </div>
 
-
-
         </div>
     </div>
 </div>
-{{--<a href="#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a>--}}
+<a href="#" class="scrollup" style="display: none;"><i class="fas fa-chevron-up"></i></a>
 
-{{--@include('shop.layouts.inc.footer_mobile')--}}
+@include('shop.layouts.inc.footer_mobile')
 
 

@@ -1,4 +1,4 @@
-<div class="section bg_default small_pt small_pb">
+<div class="section bg_defaultX newsletter_back small_pt small_pb">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6">

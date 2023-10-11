@@ -31,8 +31,9 @@
     @endif
 
     <link rel="stylesheet" href="{{ defWebAssets('css/_restaurant_var.css') }}">
-    <link rel="stylesheet" href="{{ defWebAssets('css/style_edit.css') }}">
+{{--    <link rel="stylesheet" href="{{ defWebAssets('css/style_edit.css') }}">--}}
     <link rel="stylesheet" href="{{ defWebAssets('css/_restaurant_def.css') }}">
+    <link rel="stylesheet" href="{{ defWebAssets('css/_restaurant_footer.css') }}">
     <link rel="stylesheet" href="{{ defWebAssets('css/_restaurant_style.css') }}">
 
 
@@ -76,7 +77,7 @@
 
 
 <div class="main_content">
-    @yield('content')
+{{--    @yield('content')--}}
 </div>
 
 @if(Session::get('mobileview') != 1)

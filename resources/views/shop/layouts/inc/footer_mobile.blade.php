@@ -1,7 +1,3 @@
-<div class="container">
-    <div class="row" style="padding-bottom: 100px!important;">
-    </div>
-</div>
 <div class="etman_sticky_navbar fixed d-xl-none">
     <div class="sticky-info">
         <a href="{{ route('Shop_HomePage') }}" class="sticky_a @if($SinglePageView['SelMenu'] == 'HomePage' ) active_footer @endif">
