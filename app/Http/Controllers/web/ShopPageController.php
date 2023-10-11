@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\WebMainController;
+use App\Http\Requests\data\ContactUsFormRequest;
+use App\Models\admin\app\Branch;
 use App\Models\admin\app\OpeningHours;
 use App\Models\admin\Category;
 use App\Models\admin\Product;
+use App\Models\data\ContactUsForm;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
@@ -24,9 +27,6 @@ class ShopPageController extends WebMainController
         $ShopMenuCategory = self::getShopMenuCategory($stopCash);
         View::share('ShopMenuCategory', $ShopMenuCategory);
 
-//        $RecentProduct = Product::with('translation')->inRandomOrder()->limit(4)->get();
-//        View::share('RecentProduct', $RecentProduct);
-
         $SinglePageView = [
             'SelMenu' => '',
             'profileMenu' => '',
@@ -37,8 +37,7 @@ class ShopPageController extends WebMainController
 
         $this->SinglePageView = $SinglePageView ;
 
-        $OpeningHours = OpeningHours::query()->orderBy('postion')->get();
-        View::share('OpeningHours', $OpeningHours);
+
 
     }
 
@@ -225,130 +224,62 @@ class ShopPageController extends WebMainController
     }
 
 
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #    FaqList
-    public function FaqList ()
-    {
 
-        $PageMeta = parent::getMeatByCatId('FaqList');
+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#|||||||||||||||||||||||||||||||||||||| #    ContactUs
+    public function ContactUs ()
+    {
+        $PageMeta = parent::getMeatByCatId('ContactUs');
         parent::printSeoMeta($PageMeta);
 
         $SinglePageView = $this->SinglePageView ;
-        $SinglePageView['SelMenu'] = 'FaqList' ;
+        $SinglePageView['SelMenu'] = 'ContactUs' ;
         $SinglePageView['banner_id'] = $PageMeta->banner_id ;
         $SinglePageView['banner_count'] = $PageMeta->page_banner_count ;
         $SinglePageView['banner_list'] = $PageMeta->PageBanner ;
-        $SinglePageView['breadcrumb'] = "Shop_FaqList" ;
+        $SinglePageView['breadcrumb'] = "ContactUs" ;
 
-        $FaqCategories = FaqCategory::defWeb()->paginate(12);
 
-        return view('shop.faq_list',compact('SinglePageView','PageMeta','FaqCategories'));
+        $branches = Branch::query()
+            ->where('is_active',true)
+            ->orderBy('postion')
+            ->get();
+
+        return view('web.page_contact_us',compact('SinglePageView','PageMeta','branches'));
     }
-
-
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #     FaqCatView
-    public function FaqCatView ($slug)
+#|||||||||||||||||||||||||||||||||||||| #    ContactUsThanks
+    public function ContactUsThanks ()
     {
-        $slug = \AdminHelper::Url_Slug($slug);
-
-        $FaqCategory  = FaqCategory::defWeb()
-            ->whereTranslation('slug', $slug)
-            ->firstOrFail();
-
-        if ($FaqCategory->translate()->where('slug', $slug)->first()->locale != app()->getLocale()) {
-            return redirect()->route('Shop_FaqCatView', $FaqCategory->translate()->slug);
-        }
-
-
-        $PageMeta = $FaqCategory ;
+        $PageMeta = parent::getMeatByCatId('ContactUs');
         parent::printSeoMeta($PageMeta);
 
         $SinglePageView = $this->SinglePageView ;
-        $SinglePageView['SelMenu'] = 'FaqList' ;
-        $SinglePageView['breadcrumb'] = "Shop_FaqCatView" ;
-        $SinglePageView['slug'] = 'faq/'.$FaqCategory->translate(webChangeLocale())->slug;
+        $SinglePageView['SelMenu'] = 'ContactUs' ;
+        $SinglePageView['banner_id'] = $PageMeta->banner_id ;
+        $SinglePageView['banner_count'] = $PageMeta->page_banner_count ;
+        $SinglePageView['banner_list'] = $PageMeta->PageBanner ;
+        $SinglePageView['breadcrumb'] = "ContactUs" ;
 
 
-        $FaqCategories = FaqCategory::defWeb()
-            ->where('id','!=',$FaqCategory->id)
-            ->get();
-
-        return view('shop.faq_cat_view',compact('SinglePageView','PageMeta','FaqCategory','FaqCategories'));
-
+        return view('web.page_contact_us_confirm',compact('SinglePageView','PageMeta'));
     }
 
-/*
 
 
-    /*
-        #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    #|||||||||||||||||||||||||||||||||||||| #     ShopProductView
-        public function ShopProductView ($slug,$catid='lastProducts'){
-
-            $slug = \AdminHelper::Url_Slug($slug);
-
-            $catList = ['lastProducts'];
-
-
-
-
-
-
-    //        if( !in_array($catid,$catList)){
-    //
-    ////            dd( !in_array($catid,$catList));
-    ////
-    //            ///$cat = \AdminHelper::Url_Slug($cat);
-    //            $Category  = Category::where('id',$catid)
-    //                ->where('cat_shop',true)
-    //                ->withCount('children_shop')
-    //                ->with('children_shop')
-    //                ->withCount('category_with_product_shop')
-    //                ->with('category_with_product_shop')
-    //                ->firstOrFail();
-    //
-    //
-    //
-    //        }else{
-    //            $Category = null;
-    //        }
-
-
-            $Product  = Product::Web_Shop_Def_Query()
-                ->whereTranslation('slug', $slug)
-                ->withCount('product_with_category')
-                ->with('product_with_category')
-                ->withCount('more_photos')
-                ->with('more_photos')
-                ->firstOrFail();
-
-
-
-
-
-    //        $ReletedProducts = Product::with('translation')
-    //            ->where('category_id',$Product->category_id)
-    //            ->where('id','!=',$Product->id)
-    //            ->limit(8)
-    //            ->get();
-    //more_photos_count
-    //        ;
-
-            $PageMeta = $Product ;
-            parent::printSeoMeta($PageMeta);
-
-            $SinglePageView = $this->SinglePageView ;
-            $SinglePageView['SelMenu'] = 'MainCategory' ;
-            $SinglePageView['breadcrumb'] = "Shop_ProductView" ;
-            $SinglePageView['slug'] = 'product/'.$Product->slug;
-
-            // $trees = Category::find($Product->category_id)->ancestorsAndSelf()->orderBy('depth','asc')->get() ;
-            $trees = [];
-            $ReletedProducts = [];
-            return view('shop.product.product_view',compact('SinglePageView','PageMeta','Product','trees','ReletedProducts'));
-        }
-      */
+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#|||||||||||||||||||||||||||||||||||||| #     ContactSend
+    public function ContactSend(ContactUsFormRequest $request)
+    {
+        $saveContactUs = new ContactUsForm();
+        $saveContactUs->name = $request->input('name');
+        $saveContactUs->email = $request->input('contact_us_email');
+        $saveContactUs->phone = $request->input('phone');
+        $saveContactUs->subject = $request->input('subject');
+        $saveContactUs->message = $request->input('message');
+        $saveContactUs->save();
+        return redirect()->route('Page_ContactUsThanks');
+    }
 
 
 }

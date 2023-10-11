@@ -42,20 +42,20 @@ Route::get(__('routes.Recently'),
 Route::get(__('routes.WeekOffers'),
     [ShopPageController::class, 'WeekOffers'])->name('Shop_WeekOffers');
 
+
+Route::get(LaravelLocalization::transRoute('routes.ContactUs'),
+    [ShopPageController::class, 'ContactUs'])->name('Page_ContactUs');
+
+Route::post('ContactSend',
+    [ShopPageController::class, 'ContactSend'])->name('Page_ContactSend');
+
+Route::get('/thanks',
+    [ShopPageController::class, 'ContactUsThanks'])->name('Page_ContactUsThanks');
+
+
+
 Route::get('/CartView',
     [ShoppingCartController::class, 'CartView'])->name('Shop_CartView');
 
 Route::get('/CartEmpty',
     [ShoppingCartController::class, 'CartEmpty'])->name('Shop_CartEmpty');
-
-Route::get(LaravelLocalization::transRoute('routes.ContactUs'),
-    [WebPageController::class, 'ContactUs'])->name('Page_ContactUs');
-
-Route::post('ContactSend',
-    [WebPageController::class, 'ContactSend'])->name('Page_ContactSend');
-
-Route::get('/thanks',
-    [WebPageController::class, 'ContactUsThanks'])->name('Page_ContactUsThanks');
-
-Route::get(LaravelLocalization::transRoute('routes.TermsConditions'),
-    [WebPageController::class, 'TermsConditions'])->name('Page_TermsConditions');

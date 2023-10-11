@@ -64,6 +64,7 @@ class BranchController extends AdminMainController
         $branch->is_active = intval((bool) $request->input( 'is_active'));
         $branch->lat = $request->input('lat');
         $branch->long = $request->input('long');
+        $branch->direction = $request->input('direction');
         $branch->phone = $request->input('phone');
         $branch->whatsapp = $request->input('whatsapp');
         $branch->save();

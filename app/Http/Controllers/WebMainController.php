@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\AdminHelper;
+use App\Models\admin\app\OpeningHours;
 use App\Models\admin\Category;
 use App\Models\admin\config\DefPhoto;
 use App\Models\admin\config\MetaTag;
@@ -41,6 +42,9 @@ class WebMainController extends Controller
         $DefPhotoList = self::getDefPhotoList($stopCash);
         View::share('DefPhotoList', $DefPhotoList);
 
+        $OpeningHours = OpeningHours::query()->orderBy('postion')->get();
+        View::share('OpeningHours', $OpeningHours);
+        
         $PageView = [
             'selMenu'=>  '',
             'container'=>  webContainer(0), # 'custom-container',

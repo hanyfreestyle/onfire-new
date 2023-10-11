@@ -35,57 +35,6 @@ class WebPageController extends WebMainController
     }
 
 
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #    ContactUs
-    public function ContactUs ()
-    {
-        $PageMeta = parent::getMeatByCatId('ContactUs');
-        parent::printSeoMeta($PageMeta);
-
-        $SinglePageView = $this->SinglePageView ;
-        $SinglePageView['SelMenu'] = 'ContactUs' ;
-        $SinglePageView['banner_id'] = $PageMeta->banner_id ;
-        $SinglePageView['banner_count'] = $PageMeta->page_banner_count ;
-        $SinglePageView['banner_list'] = $PageMeta->PageBanner ;
-        $SinglePageView['breadcrumb'] = "ContactUs" ;
-
-
-        return view('web.page_contact_us',compact('SinglePageView','PageMeta'));
-    }
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #    ContactUsThanks
-    public function ContactUsThanks ()
-    {
-        $PageMeta = parent::getMeatByCatId('ContactUs');
-        parent::printSeoMeta($PageMeta);
-
-        $SinglePageView = $this->SinglePageView ;
-        $SinglePageView['SelMenu'] = 'ContactUs' ;
-        $SinglePageView['banner_id'] = $PageMeta->banner_id ;
-        $SinglePageView['banner_count'] = $PageMeta->page_banner_count ;
-        $SinglePageView['banner_list'] = $PageMeta->PageBanner ;
-        $SinglePageView['breadcrumb'] = "ContactUs" ;
-
-
-        return view('web.page_contact_us_confirm',compact('SinglePageView','PageMeta'));
-    }
-
-
-
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #     ContactSend
-    public function ContactSend(ContactUsFormRequest $request)
-    {
-        $saveContactUs = new ContactUsForm();
-        $saveContactUs->name = $request->input('name');
-        $saveContactUs->email = $request->input('email');
-        $saveContactUs->phone = $request->input('phone');
-        $saveContactUs->subject = $request->input('subject');
-        $saveContactUs->message = $request->input('message');
-        $saveContactUs->save();
-        return redirect()->route('Page_ContactUsThanks');
-    }
-
 
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2023 at 12:38 AM
+-- Generation Time: Oct 11, 2023 at 05:00 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -25,9 +25,9 @@ SET time_zone = "+00:00";
 -- Dumping data for table `branches`
 --
 
-INSERT INTO `branches` (`id`, `phone`, `whatsapp`, `lat`, `long`, `is_active`, `postion`) VALUES
-(1, '+2 0100 618 0117\r\n +203 48 67 311\r\n +203 48 15 941', '01006180117', NULL, NULL, 1, 0),
-(2, '+203 58 68 324\r\n +203 58 68 325', NULL, NULL, NULL, 1, 0);
+INSERT INTO `branches` (`id`, `phone`, `whatsapp`, `lat`, `long`, `direction`, `is_active`, `postion`) VALUES
+(1, '+2 0100 618 0117\r\n +203 48 67 311\r\n +203 48 15 941', '01006180117', '31.202236', '29.882242', 'https://goo.gl/maps/GTWAx3WN26qAXofy7', 1, 0),
+(2, '+203 58 68 324\r\n +203 58 68 325', NULL, '31.238890', '29.956199', 'https://goo.gl/maps/hjDuzdSQEWuu4tpd8', 1, 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('whatsapp')->nullable();
             $table->string('lat')->nullable();
             $table->string('long')->nullable();
+            $table->string('direction')->nullable();
 
             $table->integer('is_active')->default(1);
             $table->integer('postion')->default(0);

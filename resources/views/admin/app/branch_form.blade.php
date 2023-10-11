@@ -97,19 +97,28 @@
                                         label="Latitude"
                                         name="lat"
                                         colrow="col-lg-4"
-                                        :required-span="false"
+                                        :required-span="true"
                                         value="{{old('lat',$branch->lat)}}"
                                     />
                                     <x-form-input
                                         label="Longitude"
                                         name="long"
                                         colrow="col-lg-4"
-                                        :required-span="false"
+                                        :required-span="true"
                                         value="{{old('long',$branch->long)}}"
                                     />
                                 </div>
 
 
+                                <div class="row">
+                                    <x-form-input
+                                        label="Direction Url"
+                                        name="direction"
+                                        colrow="col-lg-12"
+                                        :required-span="false"
+                                        value="{{old('direction',$branch->direction)}}"
+                                    />
+                                </div>
                                 <hr>
                                 <div class="row">
                                     <div class="col-lg-12">

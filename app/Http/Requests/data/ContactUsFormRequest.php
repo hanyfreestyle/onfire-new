@@ -16,7 +16,7 @@ class ContactUsFormRequest extends FormRequest
     {
         return [
             'name'=> "required|min:4|max:50",
-            'email'=> "required|email",
+            'contact_us_email'=> "required|email",
             'phone'=> "required|numeric|min_digits:11",
             'subject'=> "required|min:4|max:50",
             'message'=> "required|min:15|max:250",

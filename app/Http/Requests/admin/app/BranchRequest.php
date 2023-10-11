@@ -16,9 +16,10 @@ class BranchRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'lat'=> 'nullable|numeric',
-            'long'=> 'nullable|numeric',
+            'lat'=> 'required|numeric',
+            'long'=> 'required|numeric',
             'phone'=> 'required',
+            'direction'=> 'nullable|url',
 
         ];
 

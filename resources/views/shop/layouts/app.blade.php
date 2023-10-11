@@ -12,7 +12,7 @@
 {{--    <link rel="stylesheet" href="{{ defWebAssets('css/animate.css') }}">--}}
     <link rel="stylesheet" href="{{ defWebAssets('bootstrap/css/bootstrap.min_'.thisCurrentLocale().'.css') }}">
     <link rel="stylesheet" href="{{ defWebAssets('css/all.min.css') }}">
-{{--    <link rel="stylesheet" href="{{ defWebAssets('css/ionicons.min.css') }}">--}}
+    <link rel="stylesheet" href="{{ defWebAssets('css/ionicons.min.css') }}">
 {{--    <link rel="stylesheet" href="{{ defWebAssets('css/themify-icons.css') }}">--}}
     <link rel="stylesheet" href="{{ defWebAssets('css/linearicons.css') }}">
 {{--    <link rel="stylesheet" href="{{ defWebAssets('css/flaticon.css') }}">--}}
@@ -31,7 +31,7 @@
     @endif
 
     <link rel="stylesheet" href="{{ defWebAssets('css/_restaurant_var.css') }}">
-{{--    <link rel="stylesheet" href="{{ defWebAssets('css/style_edit.css') }}">--}}
+    <link rel="stylesheet" href="{{ defWebAssets('css/style_edit.css') }}">
     <link rel="stylesheet" href="{{ defWebAssets('css/_restaurant_def.css') }}">
     <link rel="stylesheet" href="{{ defWebAssets('css/_restaurant_footer.css') }}">
     <link rel="stylesheet" href="{{ defWebAssets('css/_restaurant_style.css') }}">
@@ -56,28 +56,20 @@
     </header>
 @endif
 
-{{--@if(Session::get('mobileview') != 1)--}}
-{{--    @if($agent->isDesktop() or $agent->isTablet())--}}
-{{--        @if( $SinglePageView['banner_id']  and $SinglePageView['banner_count'] > 0)--}}
-{{--            @include('shop.layouts.inc.def_banner')--}}
-{{--        @else--}}
-{{--            @yield('breadcrumb')--}}
-{{--        @endif--}}
-{{--    @else--}}
-{{--        @if(Auth::guard('customer')->check() == false)--}}
-{{--            @if( $SinglePageView['banner_id']  and $SinglePageView['banner_count'] > 0)--}}
-{{--                @include('shop.layouts.inc.def_banner')--}}
-{{--            @else--}}
-{{--                @yield('breadcrumb')--}}
-{{--            @endif--}}
-{{--        @endif--}}
-{{--    @endif--}}
-{{--@endif--}}
+@if(Session::get('mobileview') != 1)
+    @if($agent->isDesktop() or $agent->isTablet())
+        @yield('breadcrumb')
+    @else
+        @if(Auth::guard('customer')->check() == false)
+            @yield('breadcrumb')
+        @endif
+    @endif
+@endif
 
 
 
 <div class="main_content">
-{{--    @yield('content')--}}
+    @yield('content')
 </div>
 
 @if(Session::get('mobileview') != 1)

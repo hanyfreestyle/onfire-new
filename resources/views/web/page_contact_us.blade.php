@@ -13,79 +13,31 @@
                     <h1 class="def_h1 def_border " >{{$PageMeta->body_h1}}</h1>
                 </div>
             </div>
-
-
             <div class="row">
-
-                <div class="col-lg-6">
-                    <div id="map" class="contact_map_1" data-zoom="17" data-latitude="31.202236" data-longitude="29.882242"></div>
-                    <div class="mt-3 contact_page">
-                        <h2>{{ __('web/address.ad1_title') }}</h2>
-                        <ul class="contact_info">
-                            <li>
-                                <i class="ti-location-pin"></i>
-                                <p class="footer_address">
-                                    {!! nl2br(__('web/address.ad1_address')) !!}
-                                </p>
-                            </li>
-                            <li>
-                                <i class="ti-mobile"></i>
-                                <p class="forcDir footer_phone">
-                                    {!! nl2br(__('web/address.ad1_phone')) !!}
-                                </p>
-                            </li>
-
-                            <li>
-                                <i class=" far fa-clock"></i>
-                                <p class="footer_address"><strong>{{__('web/address.ad1_hours')}}</strong>
-                                    <br>
-                                    {!!  nl2br(__('web/address.ad1_hours_text')) !!}
-                                </p>
-                            </li>
-                        </ul>
-
-                        @if($agent->isMobile())
-                            <div class="text-center mt-3">
-                                <a target="_blank" href="https://goo.gl/maps/GTWAx3WN26qAXofy7" class="btn btn-border-fill"> <i class="fas fa-map-marker-alt"></i>{{__('web/address.Get_Direction')}}</a>
+                <div class="col-lg-12">
+                    @foreach($branches as  $branch)
+                        <div class="row mt-3 mb-3">
+                            <div class="col-lg-6 mb-3">
+                                <div id="map_{{$branch->id}}" class="contact_map_1" data-zoom="18" data-latitude="{{$branch->lat}}" data-longitude="{{$branch->long}}"></div>
                             </div>
-                        @endif
-                    </div>
+                            <div class="col-lg-6">
+                                <div class="contact_page">
+                                    <h2>{{ $branch->title }}</h2>
+                                    <ul class="contact_info">
+                                        <li><i class="ti-location-pin"></i><p class="footer_address">{!! nl2br( $branch->address) !!}</p></li>
+                                        <li><i class="ti-mobile"></i><p class="forcDir footer_phone">{!! nl2br( $branch->phone) !!}</p></li>
+                                        <li><i class=" far fa-clock"></i><p class="footer_address"><strong>{{__('web/address.ad1_hours')}}</strong><br>{!! nl2br( $branch->work_hours) !!}</p></li>
+                                    </ul>
+                                    @if($agent->isMobile() and $branch->direction != null )
+                                        <div class="text-center mt-3"><a target="_blank" href="{{$branch->direction}}" class="btn btn-border-fill"> <i class="fas fa-map-marker-alt"></i>{{__('web/address.Get_Direction')}}</a></div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
 
-                <div class="col-lg-6 pt-2 pt-lg-0 mt-4 mt-lg-0">
-                    <div id="sub_map" class="contact_map_1" data-zoom="17" data-latitude="31.238890" data-longitude="29.956199" ></div>
-                    <div class="mt-3 contact_page">
-                        <h2>{{ __('web/address.ad2_title') }}</h2>
-                        <ul class="contact_info">
-                            <li>
-                                <i class="ti-location-pin"></i>
-                                <p class="footer_address">
-                                    {!! nl2br(__('web/address.ad2_address')) !!}
-                                </p>
-                            </li>
-                            <li>
-                                <i class="ti-mobile"></i>
-                                <p class="forcDir footer_phone">
-                                    {!! nl2br(__('web/address.ad2_phone')) !!}
-                                </p>
-                            </li>
 
-                            <li>
-                                <i class=" far fa-clock"></i>
-                                <p class="footer_address"><strong>{{__('web/address.ad1_hours')}}</strong>
-                                    <br>
-                                    {!!  nl2br(__('web/address.ad2_hours_text')) !!}
-                                </p>
-                            </li>
-                        </ul>
-                        @if($agent->isMobile())
-                            <div class="text-center mt-3">
-                                <a target="_blank" href="https://goo.gl/maps/hjDuzdSQEWuu4tpd8" class="btn btn-border-fill"> <i class="fas fa-map-marker-alt"></i> {{__('web/address.Get_Direction')}}</a>
-                            </div>
-                        @endif
-
-                    </div>
-                </div>
 
             </div>
         </div>
@@ -102,10 +54,11 @@
                 @endif
                 <div class="col-lg-8 contactform">
 
-                    <h2 class="def_h2">{{__('web/contact_form.title')}}</h2>
 
-                    <p class="leads"> {!! __('web/contact_form.des') !!}</p>
-                    <div class="">
+
+{{--                    <p class="leads"> {!! __('web/contact_form.des') !!}</p>--}}
+                    <div class="row">
+{{--                        <h2 class="def_h2">{{__('web/contact_form.title')}}</h2>--}}
                         <form method="post" action="{{route('Page_ContactSend')}}">
                             @csrf
                             <div class="row">
@@ -118,7 +71,7 @@
                                 </div>
                                 <div class="form-group col-md-6 mb-3">
                                     <x-form-input
-                                        name="email"
+                                        name="contact_us_email"
                                         label="{{__('web/contact_form.email')}}"
                                         value="{{old('email')}}"
                                     />
@@ -166,5 +119,56 @@
 
 
 @section('googleMaps')
-    <script src="https://maps.googleapis.com/maps/api/js?key={{$WebConfig->google_api}}&amp;callback=initMap"></script>
+{{--    <script src="https://maps.googleapis.com/maps/api/js?key={{$WebConfig->google_api}}&amp;callback=initMap"></script>--}}
+    <script src="https://maps.googleapis.com/maps/api/js?key={{$WebConfig->google_api}}"></script>
+    <script>
+
+        @foreach($branches as  $branch)
+        if ($("#map_{{$branch->id}}").length > 0){
+            google.maps.event.addDomListener(window, 'load', init);
+        }
+        var map_selector = $('#map_{{$branch->id}}');
+        @endforeach
+
+        // if ($("#sub_map").length > 0){
+        //     google.maps.event.addDomListener(window, 'load', init);
+        // }
+        // var map_selector_sub = $('#sub_map');
+
+        function init() {
+
+            @foreach($branches as  $branch)
+            var mapOptions = {
+                zoom: map_selector.data("zoom"),
+                mapTypeControl: false,
+                center: new google.maps.LatLng(map_selector.data("latitude"), map_selector.data("longitude")), // New York
+            };
+            var mapElement = document.getElementById('map_{{$branch->id}}');
+            var map_{{$branch->id}} = new google.maps.Map(mapElement, mapOptions);
+            var marker;
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(map_selector.data("latitude"), map_selector.data("longitude")),
+                map: map_{{$branch->id}},
+                animation: google.maps.Animation.DROP
+            });
+            @endforeach
+            // var mapOptions = {
+            //     zoom: map_selector_sub.data("zoom"),
+            //     mapTypeControl: false,
+            //     center: new google.maps.LatLng(map_selector_sub.data("latitude"), map_selector_sub.data("longitude")), // New York
+            // };
+            // var mapElement = document.getElementById('sub_map');
+            // var map2 = new google.maps.Map(mapElement, mapOptions);
+            // var marker = new google.maps.Marker({
+            //     position: new google.maps.LatLng(map_selector_sub.data("latitude"), map_selector_sub.data("longitude")),
+            //     map: map2,
+            //     icon: map_selector_sub.data("icon"),
+            //
+            //     title: map_selector_sub.data("title"),
+            // });
+
+
+        }
+
+    </script>
 @endsection
